@@ -1,10 +1,10 @@
 name:                eris
 version:             0.1.0.0
-github:              "githubuser/eris"
+github:              "emmettng/eris"
 license:             BSD3
-author:              "Wu Hao"
-maintainer:          "wuhao@protonmail.com"
-copyright:           "Wu Hao"
+author:              "Emmett Ng"
+maintainer:          "Emmettng@gmail.com"
+copyright:           "Copyright (C) 2018 Emmett H. Ng"
 
 extra-source-files:
 - README.md
