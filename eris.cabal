@@ -2,15 +2,15 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 32bd501c8fc8ae0e1a1862502d299fe592b5822aaa8fa34641f6e4fc4db7e1d0
+-- hash: d7f2850bfd9ee87da645a937fef58e8818db1691ad837ecd8b374871db2233ce
 
 name:           eris
 version:        0.1.0.0
 description:    Please see the README on Github at <https://github.com/githubuser/eris#readme>
 homepage:       https://github.com/emmettng/eris#readme
 bug-reports:    https://github.com/emmettng/eris/issues
-author:         emmett Ng
-maintainer:     emmettng@gmail.com
+author:         Emmett Ng
+maintainer:     Emmettng@gmail.com
 copyright:      Copyright (C) 2018 Emmett H. Ng
 license:        BSD3
 license-file:   LICENSE
@@ -30,8 +30,12 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , bytestring
+    , containers
+    , unordered-containers
   exposed-modules:
-      Lib
+      Eris.Compute.Similarity
+      Eris.Meta.DataStructure
   other-modules:
       Paths_eris
   default-language: Haskell2010

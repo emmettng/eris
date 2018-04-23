@@ -24,6 +24,12 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - containers
+    - unordered-containers
+    - bytestring
+#  exposed-modules:
+#    Eris.Compute.Similarity
 
 executables:
   eris-exe:
