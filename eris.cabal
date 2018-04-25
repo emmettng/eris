@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 246e87cfd3d9bfaa429cbb7e03518b208b85cc333de33b6bffe84e9bc43d120b
+-- hash: a10c34b5af0e3cda75fdac915770dbfcd8ad4380cef8164fd7f7f0eae6ee21d8
 
 name:           eris
 version:        0.1.0.0
@@ -41,18 +41,6 @@ library
       Paths_eris
   default-language: Haskell2010
 
-executable eris-exe
-  main-is: Main.hs
-  hs-source-dirs:
-      app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , eris
-  other-modules:
-      Paths_eris
-  default-language: Haskell2010
-
 test-suite eris-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
@@ -62,6 +50,7 @@ test-suite eris-test
   build-depends:
       base >=4.7 && <5
     , eris
+    , hspec
   other-modules:
       Paths_eris
   default-language: Haskell2010
