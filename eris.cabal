@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4d1a5916ea390e723b7510ed5300303ebf9be7fe9284b5fc8d013d7b9bebc3c0
+-- hash: 5b51c956d912ab0b7a47938e244b820eddc48bd80e11af5646dbbfad27e8744a
 
 name:           eris
 version:        0.1.0.0
@@ -43,12 +43,13 @@ library
 
 test-suite eris-test
   type: exitcode-stdio-1.0
-  main-is: Main.hs
+  main-is: Spec.hs
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      Decimal
+    , base >=4.7 && <5
     , eris
     , hspec
   other-modules:

@@ -1,13 +1,13 @@
 module Eris.Compute.Similarity
     (
-      consine 
+      consine
     ) where
 import qualified Data.HashMap.Strict as Map
 import Data.Maybe
 
 import Eris.Meta.DataStructure
 
-consine :: [Double] -> [Double] -> Double
+consine :: [Float] -> [Float] -> Float
 consine v1 v2 = dot v1 v2 / (elen v1 * elen v2)
     where
         dot a b = sum $ zipWith (*) a b

@@ -34,7 +34,7 @@ library:
 
 tests:
   eris-test:
-    main:                Main.hs
+    main:                Spec.hs
     source-dirs:         test
     ghc-options:
     - -threaded
@@ -43,4 +43,5 @@ tests:
     dependencies:
     - eris
     - hspec
+    - Decimal
     package-options: -O2
