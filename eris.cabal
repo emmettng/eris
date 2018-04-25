@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a10c34b5af0e3cda75fdac915770dbfcd8ad4380cef8164fd7f7f0eae6ee21d8
+-- hash: 4d1a5916ea390e723b7510ed5300303ebf9be7fe9284b5fc8d013d7b9bebc3c0
 
 name:           eris
 version:        0.1.0.0
@@ -43,7 +43,7 @@ library
 
 test-suite eris-test
   type: exitcode-stdio-1.0
-  main-is: Spec.hs
+  main-is: Main.hs
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
