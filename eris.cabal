@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5b51c956d912ab0b7a47938e244b820eddc48bd80e11af5646dbbfad27e8744a
+-- hash: 21397c691e6728d4421760ba4cf525dbbd1fc532f5e36c03821c092f51903654
 
 name:           eris
 version:        0.1.0.0
@@ -29,7 +29,8 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      QuickCheck
+    , base >=4.7 && <5
     , bytestring
     , containers
     , unordered-containers
@@ -48,10 +49,25 @@ test-suite eris-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      Decimal
+      QuickCheck
     , base >=4.7 && <5
     , eris
     , hspec
   other-modules:
+      Quick
+      Paths_eris
+  default-language: Haskell2010
+
+test-suite quick-test
+  type: exitcode-stdio-1.0
+  main-is: Quick.hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck
+    , base >=4.7 && <5
+  other-modules:
+      Spec
       Paths_eris
   default-language: Haskell2010

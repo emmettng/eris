@@ -1,7 +1,6 @@
 module Main  where
 
 import Test.Hspec
-import Data.Decimal
 import Eris.Compute.Similarity
 
 main :: IO ()
@@ -14,4 +13,6 @@ spec = do
       it "The vector and itself" $ do
         (consine [1.0,1.0,1.0] [1.0,1.0,1.0]) `shouldBe` 1.0
 
-      it "The vector and any perpendicular" $ do ( consine [1.0, 0.0] [0.0, 1.0]) `shouldBe` 0
+      it "The vector and any perpendicular" $ do
+        consine [1.0, 0.0] [0.0, 1.0] `shouldBe` 0
+        consine [1.0,1.0] [1.0,-1.0] `shouldBe` 0
