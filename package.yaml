@@ -28,7 +28,7 @@ library:
     - containers
     - unordered-containers
     - bytestring
-    - QuickCheck 
+    - hmatrix
 #  exposed-modules:
 #    Eris.Compute.Similarity
 
@@ -45,13 +45,13 @@ tests:
     - eris
     - hspec
     - QuickCheck
-    package-options: -O2
-  quick-test:
-    main:               Quick.hs
-    source-dirs:        test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - QuickCheck
+
+#  quick-test:
+#    main:               Quick.hs
+#    source-dirs:        test
+#    ghc-options:
+#    - -threaded
+#    - -rtsopts
+#    - -with-rtsopts=-N
+#    dependencies:
+#    - QuickCheck

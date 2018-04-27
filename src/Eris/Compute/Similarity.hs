@@ -1,40 +1,65 @@
 module Eris.Compute.Similarity
     (
-      consine
+      cosineSimilarity
     ) where
 import qualified Data.HashMap.Strict as Map
 import Data.Maybe
+import Numeric.LinearAlgebra
 
 import Eris.Meta.DataStructure
 
-consine :: [Float] -> [Float] -> Float
-consine v1 v2 = dot v1 v2 / (elen v1 * elen v2)
+cosineSimilarity :: VectorDistance
+cosineSimilarity l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where
-        dot a b = sum $ zipWith (*) a b
-        elen a = sqrt $ dot a a
+        v1 = vector l1
+        v2 = vector l2
 
-consineSimilarity :: Threshold -> ECount -> SimilarityMatrix
-consineSimilarity th ecount = let
+msdSimilarity :: VectorDistance
+msdSimilarity l1 l2 =  norm_2 (v1 - v2) / len
+    where v1 = vector l1
+          v2 = vector l2
+          len = fromIntegral . length $ l1
+
+meanSimilarity :: VectorDistance
+meanSimilarity l1 l2 = vm1 <.> vm2 / (norm_2 vm1 * norm_2 vm2)
+    where len = fromIntegral . length $ l1
+          v1 = vector l1
+          v2 = vector l2
+          m1 = norm_1 v1 / len
+          m2 = norm_1 v2 / len
+          vm1 = v1 - vector [m1]
+          vm2 = v2 - vector [m2]
+
+pairWiseSimilarity :: Threshold
+                      -> ECount
+                      -> SimilarityMatrix
+                      -> VectorDistance
+                      -> SimilarityMatrix
+pairWiseSimilarity bar ecount cumSM sfn =
+          let
             target = head . Map.toList $ ecount
             items = tail . Map.toList $ ecount
-            similarVector = fmap (consineAuxil target) items
-          in composeMatrix target items similarVector
+            sVector = pairwiseAuxil target <$> items
+            sMatrix = composeMatrix target items sVector
+          in
+            if null items
+              then Map.union cumSM sMatrix
+            else
+              pairWiseSimilarity bar (Map.fromList items) (Map.union cumSM sMatrix) sfn
           where
-                consineAuxil :: (EID, ESMap)-> (EID,ESMap)-> Double
-                consineAuxil (_, tMap) (_,iMap) =
-                  esmapConsine tMap iMap
-                esmapConsine :: ESMap -> ESMap -> Double
-                esmapConsine t i = let
+                pairwiseAuxil :: (EID, ESMap)-> (EID,ESMap)-> Double
+                pairwiseAuxil (_, tMap) (_,iMap) =
+                  esmapSFN tMap iMap
+                esmapSFN :: ESMap -> ESMap -> Double
+                esmapSFN t i = let
                     intersect = Map.toList $ Map.intersection t i
                     tv = [ snd v |v <- intersect]
                     iv = catMaybes [ Map.lookup (fst v) i| v <- intersect]
-                    dot a b = sum $ zipWith (*) a b
-                    elen a = sqrt $ dot a a
                     in
                       if null intersect
                        then 0
                       else
-                        dot tv iv / (elen tv * elen iv)
+                        sfn tv iv
                 composeMatrix :: (EID, ESMap) -> [(EID, ESMap)] -> [Double] -> SimilarityMatrix
                 composeMatrix tt ilist slist = let
                     tid = fst tt

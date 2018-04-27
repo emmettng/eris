@@ -22,3 +22,5 @@ type SimilarityMatrix = Map.HashMap EID (Map.HashMap EID Score)
 -- ESMap is alias for convience.
 type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
+
+type VectorDistance = [Double] -> [Double] -> Double
