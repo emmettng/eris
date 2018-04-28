@@ -1,12 +1,27 @@
+-- |
+-- Module         : Eris.Compute.Similarity
+-- Copyright      : (c) 2018 Emmett H. Ng
+-- License        : BSD3
+--
+-- Maintainer     : emmettng@gmail.com
+-- Stability      : experimental & educational
+-- Portability    : portable
+--
+-- Functions of computing pairwise similarity and similarity matrix.
+
 module Eris.Compute.Similarity
     (
-      cosineSimilarity
+      cosineSimilarity,
+      msdSimilarity,
+      meanSimilarity,
+      pairWiseSimilarity
     ) where
 import qualified Data.HashMap.Strict as Map
 import Data.Maybe
 import Numeric.LinearAlgebra
 
 import Eris.Meta.DataStructure
+
 
 cosineSimilarity :: VectorDistance
 cosineSimilarity l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
