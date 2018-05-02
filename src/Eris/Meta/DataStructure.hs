@@ -1,8 +1,11 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Eris.Meta.DataStructure where
 
 import qualified Data.Set as DS
 import qualified Data.HashMap.Strict as Map
 import qualified Data.ByteString.Lazy.Char8 as B
+import GHC.Generics (Generic)
+import Data.Csv
 
 type Threshold = Integer
 
@@ -23,5 +26,13 @@ type SimilarityMatrix = Map.HashMap EID (Map.HashMap EID Score)
 type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
 
+type GroupName = String
 type VectorDistance = [Double] -> [Double] -> Double
-type SaleRecord = [(B.ByteString, B.ByteString, Int)]
+
+
+-- | SaleRecord to be able to parse by Data.Csv
+data SaleRecord =  SaleRecord { sku::B.ByteString, cid::B.ByteString, cRanking::Int} deriving  (Generic, Show)
+instance FromNamedRecord SaleRecord
+instance ToNamedRecord SaleRecord
+instance DefaultOrdered SaleRecord
+instance FromRecord SaleRecord

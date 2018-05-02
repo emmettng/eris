@@ -41,7 +41,6 @@ psTestData = do
     case decode NoHeader csvData of
         Left err -> fail err
         Right v -> return v
---    case decode NoHeader csvData of
---        Left err -> fail $ err
---        Right v -> liftIO $ V.forM_ v $ \ (sku, uid, rank::Int ) ->
---            putStrLn $ sku ++ " with id: " ++ uid ++ "with rank:" ++  show rank
+
+records2eCount :: Vector SaleRecord -> GroupName -> ECount
+records2eCount = undefined
