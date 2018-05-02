@@ -28,7 +28,10 @@ library:
     - containers
     - unordered-containers
     - bytestring
-    - hmatrix
+    - hmatrix                 ## Numeric.LinearAlgebra
+    - cassava                 ## For Data.Csv
+    - vector                  ## For Data.Vector
+    - mtl
 #  exposed-modules:
 #    Eris.Compute.Similarity
 

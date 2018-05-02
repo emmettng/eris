@@ -24,3 +24,4 @@ type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
 
 type VectorDistance = [Double] -> [Double] -> Double
+type SaleRecord = [(B.ByteString, B.ByteString, Int)]

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e1cfa0a1fcd23f4081dbb593c1bb7c75d8b2c52f4747e6786ae9c7771dd64f89
+-- hash: 0c464f5496eb3ccd0f4f4e319bce3f7326d9687a9dff78b5b40e85ad20970e71
 
 name:           eris
 version:        0.1.0.0
@@ -31,9 +31,12 @@ library
   build-depends:
       base >=4.7 && <5
     , bytestring
+    , cassava
     , containers
     , hmatrix
+    , mtl
     , unordered-containers
+    , vector
   exposed-modules:
       Eris.Compute.Similarity
       Eris.Meta.DataStructure
