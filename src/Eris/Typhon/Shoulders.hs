@@ -25,6 +25,15 @@ trivialEcount = Map.fromList [("user1",esm1),("user2",esm2)]
         esm1 = Map.fromList [("a",2),("b",3),("d",5)]
         esm2 = Map.fromList [("e",5),("a",5),("d",3)]
 
+trivialSaleRecords :: Vector SaleRecord
+trivialSaleRecords = V.fromList [
+                                SaleRecord "BL123T" "C001" 2,
+                                SaleRecord "BL123T" "C002" 3,
+                                SaleRecord "BL123T" "C003" 5,
+                                SaleRecord "BL223T" "C009" 5,
+                                SaleRecord "BL223T" "C001" 5,
+                                SaleRecord "BL223T" "C003" 3
+                              ]
 -- | for test Similairty Module
 -- An empty Map for pairWiseSimilarity
 empMatrix :: SimilarityMatrix
