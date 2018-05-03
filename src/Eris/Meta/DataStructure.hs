@@ -16,10 +16,10 @@ type EID = B.ByteString
 
 -- | Being use to denote relation between two elements upon certain dimension.
 -- This relation could be similarity or other, such as rating.
-type Score = Double
+type Rank = Double
 
 --  | Pair-wise similarity of a certain dimension.
-type SimilarityMatrix = Map.HashMap EID (Map.HashMap EID Score)
+type SimilarityMatrix = Map.HashMap EID (Map.HashMap EID Rank)
 
 -- | Simalrity Dictionary, the outter key is group by dimension.
 -- ESMap is alias for convience.
@@ -27,11 +27,12 @@ type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
 
 type GroupName = String
-type VectorDistance = [Double] -> [Double] -> Double
+type RankDistance = [Rank] -> [Rank] -> Rank
 
 
 -- | SaleRecord to be able to parse by Data.Csv
-data SaleRecord =  SaleRecord { sku::B.ByteString, cid::B.ByteString, cRanking::Int} deriving  (Generic, Show)
+data SaleRecord =  SaleRecord { sku::B.ByteString, cid::B.ByteString, cRanking::Double} deriving  (Generic, Show)
+
 instance FromNamedRecord SaleRecord
 instance ToNamedRecord SaleRecord
 instance DefaultOrdered SaleRecord

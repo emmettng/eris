@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0c464f5496eb3ccd0f4f4e319bce3f7326d9687a9dff78b5b40e85ad20970e71
+-- hash: 44bc146362a1fb0d63591faea02a5a5a161a6c9bc7be87dae0e9c32c2dbf2829
 
 name:           eris
 version:        0.1.0.0
@@ -33,6 +33,7 @@ library
     , bytestring
     , cassava
     , containers
+    , hashable
     , hmatrix
     , mtl
     , unordered-containers

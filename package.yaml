@@ -32,6 +32,7 @@ library:
     - cassava                 ## For Data.Csv
     - vector                  ## For Data.Vector
     - mtl
+    - hashable
 #  exposed-modules:
 #    Eris.Compute.Similarity
 

@@ -23,19 +23,19 @@ import Numeric.LinearAlgebra
 import Eris.Meta.DataStructure
 
 
-cosineSimilarity :: VectorDistance
+cosineSimilarity :: RankDistance
 cosineSimilarity l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where
         v1 = vector l1
         v2 = vector l2
 
-msdSimilarity :: VectorDistance
+msdSimilarity :: RankDistance
 msdSimilarity l1 l2 =  norm_2 (v1 - v2) / len
     where v1 = vector l1
           v2 = vector l2
           len = fromIntegral . length $ l1
 
-meanSimilarity :: VectorDistance
+meanSimilarity :: RankDistance
 meanSimilarity l1 l2 = vm1 <.> vm2 / (norm_2 vm1 * norm_2 vm2)
     where len = fromIntegral . length $ l1
           v1 = vector l1
@@ -46,11 +46,11 @@ meanSimilarity l1 l2 = vm1 <.> vm2 / (norm_2 vm1 * norm_2 vm2)
           vm2 = v2 - vector [m2]
 
 pairWiseSimilarity :: Threshold
+                      -> SimilarityMatrix
+                      -> RankDistance
                       -> ECount
                       -> SimilarityMatrix
-                      -> VectorDistance
-                      -> SimilarityMatrix
-pairWiseSimilarity bar ecount cumSM sfn =
+pairWiseSimilarity bar cumSM sfn ecount=
           let
             target = head . Map.toList $ ecount
             items = tail . Map.toList $ ecount
@@ -60,7 +60,7 @@ pairWiseSimilarity bar ecount cumSM sfn =
             if null items
               then Map.union cumSM sMatrix
             else
-              pairWiseSimilarity bar (Map.fromList items) (Map.union cumSM sMatrix) sfn
+              pairWiseSimilarity bar (Map.union cumSM sMatrix) sfn (Map.fromList items)
           where
                 pairwiseAuxil :: (EID, ESMap)-> (EID,ESMap)-> Double
                 pairwiseAuxil (_, tMap) (_,iMap) =
