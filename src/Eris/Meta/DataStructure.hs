@@ -19,7 +19,8 @@ type EID = B.ByteString
 type Rank = Double
 
 --  | Pair-wise similarity of a certain dimension.
-type SimilarityMatrix = Map.HashMap EID (Map.HashMap EID Rank)
+--  :: Map.HashMap EID (Map.HashMap EID Rank)
+type SimilarityMatrix = ECount
 
 -- | Simalrity Dictionary, the outter key is group by dimension.
 -- ESMap is alias for convience.

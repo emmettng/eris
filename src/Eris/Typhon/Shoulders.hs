@@ -48,6 +48,7 @@ empESMap = Map.empty
 -- | Get testing data from pairWiseSimilarity from a .csv file
 psCSVData :: String
 psCSVData = "./source/test_dataset.csv"
+-- psCSVData = "./source/sku_phone.csv"
 
 -- psTestData :: MonadIO m => m
 
