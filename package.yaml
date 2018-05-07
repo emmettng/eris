@@ -50,12 +50,12 @@ tests:
     - hspec
     - QuickCheck
 
-#  quick-test:
-#    main:               Quick.hs
-#    source-dirs:        test
-#    ghc-options:
-#    - -threaded
-#    - -rtsopts
-#    - -with-rtsopts=-N
-#    dependencies:
-#    - QuickCheck
+  quick-test:
+    main:               Quick.hs
+    source-dirs:        test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - QuickCheck
