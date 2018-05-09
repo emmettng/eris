@@ -18,7 +18,6 @@ module Eris.Compute.Similarity
       pairWiseSimilarity
     ) where
 import qualified Data.HashMap.Strict as Map
-import qualified Data.Vector as V
 import Data.Maybe
 import Numeric.LinearAlgebra
 
@@ -74,8 +73,8 @@ pearsonCC l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where len = fromIntegral . length $ l1
           tv1 = vector l1
           tv2 = vector l2
-          m1 = norm_1 tv1 / len
-          m2 = norm_1 tv2 / len
+          m1 = sumElements tv1 / len
+          m2 = sumElements tv2 / len
           v1 = tv1 - vector [m1]
           v2 = tv2 - vector [m2]
 
