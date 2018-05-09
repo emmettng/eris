@@ -31,7 +31,9 @@ spec = do
           (pearsonCC [-1,2,-3,4,-5] [-4,5,-10,11,-16]) `shouldBe` (1.0:: Double)
 
     describe "Pearson CC is a special Case of consine similarity: " $ do
-      it " The value of PCC and CosineSi: " $ do
         let l1 = [-3..1]
             l2 = fmap (\x -> x*300 -120) l1
-        (pearsonCC l1 l2) `shouldBe` (cosineSimilarity l1 l2)
+        it " The value of PCC and CosineSi: " $ do
+          (pearsonCC l1 l2) `shouldBe` (cosineSimilarity l1 l2)
+        it "pearson CC base on z score: " $ do
+          (pearsonCC l1 l2) `shouldBe` (pearsonCC' l1 l2)

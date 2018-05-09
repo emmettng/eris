@@ -15,6 +15,7 @@ module Eris.Compute.Similarity
       cosineSimilarity,
       meanSquaredDistance,
       pearsonCC,
+      pearsonCC',
       pairWiseSimilarity
     ) where
 import qualified Data.HashMap.Strict as Map
@@ -78,10 +79,21 @@ pearsonCC l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
           v1 = tv1 - vector [m1]
           v2 = tv2 - vector [m2]
 
+pearsonCC' :: RankMetric
+pearsonCC' l1 l2 = z1 <.> z2 /d
+    where z1 = zScore l1
+          z2 = zScore l2
+          d = fromIntegral . length $ l1
 
 -- | a little bit involove actually
-zScore :: Vector Rank -> Vector Rank
-zScore = undefined
+zScore :: [Rank] -> Vector Rank
+zScore xs = scale (sqrt d / l2normV ) v
+    where x = vector xs
+          d = fromIntegral . length $ xs
+          meanX = sumElements x / d
+          v = x - vector [meanX]
+          l2normV = norm_2 v
+
 
 pairWiseSimilarity :: Threshold
                       -> SimilarityMatrix
