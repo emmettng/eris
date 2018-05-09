@@ -28,7 +28,7 @@ type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
 
 type GroupName = String
-type RankDistance = [Rank] -> [Rank] -> Rank
+type RankMetric = [Rank] -> [Rank] -> Rank
 
 
 -- | SaleRecord to be able to parse by Data.Csv
