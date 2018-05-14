@@ -11,6 +11,7 @@
 
 module Eris.Compute.Similarity
     (
+      sumAbsoluteDifference,
       cosineDistance,
       cosineSimilarity,
       meanSquaredDistance,
@@ -86,6 +87,8 @@ pearsonCC' l1 l2 = z1 <.> z2 /d
           d = fromIntegral . length $ l1
 
 -- | a little bit involove actually
+-- Standard deviation = l2normV / sqart d
+-- z-score = v / standard deviation
 zScore :: [Rank] -> Vector Rank
 zScore xs = scale (sqrt d / l2normV ) v
     where x = vector xs
@@ -94,6 +97,14 @@ zScore xs = scale (sqrt d / l2normV ) v
           v = x - vector [meanX]
           l2normV = norm_2 v
 
+-- | merge two sorted list
+
+--sortH :: Ord a => [a] -> [a] -> [a]
+--sortH l1@(x:xs) l2@(y:ys)
+--    | x <= y = x : sortH xs l2
+--    | otherwise = y : sortH l1 ys
+--sortH [] l2 = l2
+--sortH l1 [] = l1
 
 pairWiseSimilarity :: Threshold
                       -> SimilarityMatrix
