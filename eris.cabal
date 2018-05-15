@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4668bb108fa7201d1b89664e10b64c229466298d559bdc2f265fc017cc07990b
+-- hash: 2735cda3fdf5803667038bfa886a2b7bfeb993f326eeb746c5dfc2010db71c0c
 
 name:           eris
 version:        0.1.0.0
@@ -29,7 +29,8 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      QuickCheck
+    , base >=4.7 && <5
     , bytestring
     , cassava
     , containers

@@ -33,6 +33,7 @@ library:
     - vector                  ## For Data.Vector
     - mtl
     - hashable
+    - QuickCheck
 #  exposed-modules:
 #    Eris.Compute.Similarity
 
