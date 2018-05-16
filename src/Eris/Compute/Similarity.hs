@@ -12,6 +12,7 @@
 module Eris.Compute.Similarity
     (
       sumAbsoluteDifference,
+      meanAbsoluteDifference,
       cosineDistance,
       cosineSimilarity,
       meanSquaredDistance,
@@ -31,6 +32,7 @@ sumAbsoluteDifference:: RankMetric
 sumAbsoluteDifference l1 l2 = norm_1 (v1 - v2)
     where v1 = vector l1
           v2 = vector l2
+
 
 -- | Mean absolute Error
 meanAbsoluteDifference :: RankMetric

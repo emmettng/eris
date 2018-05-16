@@ -2,15 +2,25 @@ module Test.TestSimilarity where
 
 import Test.Hspec
 import Test.QuickCheck
+import Data.List
+
 import Eris.Compute.Similarity
 
-
+tl1 = [1,-1,2,-2]
+tl2 = [-1,1,-2,2]
 
 similarityHspec :: Spec
 similarityHspec = do
-    describe "L1 norm" $ do
-      it "inline one" $ do
-        sumAbsoluteDifference [1,-1,2,-2] [-1,1,-2,2] `shouldBe` 6
+    describe "Sum Absolute Difference" $ do
+      it "Naive test: based on L1 norm" $
+        sumAbsoluteDifference [1,-1,2,-2] [-1,1,-2,2] `shouldBe` 12
+      it "Pro test: symmetric"$ property $
+        \l1 l2 -> (length l1 /= length l2)  || (sumAbsoluteDifference l2 l1 == sum (fmap abs (zipWith (-) l1 l2)))
+    describe "mean absolute Difference " $do
+      it "naive test: based on Sum Absolute Difference" $
+        meanAbsoluteDifference tl1 tl2 `shouldBe` sumAbsoluteDifference tl1 tl2 / 4
+      it "Pro test: symmetric" $ property $
+        \l1 l2 -> (length l1 /= length l2)  || (meanAbsoluteDifference l2 l1 == (sum (fmap abs (zipWith (-) l1 l2))) / fromIntegral (length l2))
 
     describe "Cosine Similarity: " $ do
       it "The vector and itself is one." $ do
