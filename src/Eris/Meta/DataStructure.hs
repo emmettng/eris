@@ -12,20 +12,41 @@ type Threshold = Integer
 -- | Element ID
 -- Each Eelement is has an unique ID, and based upon different measurements of inviduls of the same type, the difference could be identified with different dimensions.
 
+-- | EID : Entity ID
+-- Entity represent either products or customers
+-- It must be discete
 type EID = B.ByteString
+type CID = EID
+type PID = EID
+type Neighbors = [EID]
+type NeighborSimilarity = [(EID,Double)]
+type NeighborRank = [(EID,Rank)]
 
--- | Being use to denote relation between two elements upon certain dimension.
--- This relation could be similarity or other, such as rating.
+data Order = Desc | Asc deriving (Eq)
+
+-- | Relation between two kinds of entities
+-- e.g:
+--    1. Similarity between customers
+--    2. Similarity between productes
+--    3. Customers' rating of products.
 type Rank = Double
 
---  | Pair-wise similarity of a certain dimension.
---  :: Map.HashMap EID (Map.HashMap EID Rank)
-type SimilarityMatrix = ECount
-
--- | Simalrity Dictionary, the outter key is group by dimension.
+-- | 2D matrix of Entity type A and Entity type B ( A & B could be the same type).
+-- Map.lookupDefault for querying this matrix.
+-- Represent:
+--    0. Matrix of customers' rating of product, outter key is group by certain dimension (Entity type)
 -- ESMap is alias for convience.
 type ECount = Map.HashMap EID ESMap
 type ESMap = Map.HashMap EID Double
+
+-- | Alias of Ecount
+-- Map.lookupDefault for querying this matrix.
+-- Represent:
+--    0. Similarity Dictionary between entities of the same type.
+--  :: Map.HashMap EID (Map.HashMap EID Rank)
+type SimilarityMatrix = ECount
+
+
 
 type GroupName = String
 type RankMetric = [Rank] -> [Rank] -> Rank

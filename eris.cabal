@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2735cda3fdf5803667038bfa886a2b7bfeb993f326eeb746c5dfc2010db71c0c
+-- hash: c525dbb67d82aceb80a13269945c39ace5cffe20f98a50ee5e08de79946f4aa5
 
 name:           eris
 version:        0.1.0.0
@@ -42,6 +42,7 @@ library
   exposed-modules:
       Eris.Compute.Similarity
       Eris.Meta.DataStructure
+      Eris.Predict.KNNbased
       Eris.Typhon.Shoulders
   other-modules:
       Paths_eris

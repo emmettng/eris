@@ -5,6 +5,9 @@ import Data.List
 prop_revapp :: [Char] -> [Char] -> Bool
 prop_revapp xs ys = reverse (xs++ys) == reverse ys ++ reverse xs
 
+-- deepCheck = quickCheckWith (stdArgs {maxSuccess = 10000})
+
+
 prop_split_inv xs = forAll (elements xs) $ testXS xs
     where testXS xxs c =
                         let y = split c xxs

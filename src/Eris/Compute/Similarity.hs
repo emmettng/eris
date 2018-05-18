@@ -109,9 +109,9 @@ zScore xs = scale (sqrt d / l2normV ) v
 --sortH l1 [] = l1
 
 pairWiseSimilarity :: Threshold
-                      -> SimilarityMatrix
-                      -> RankMetric
-                      -> ECount
+                      -> SimilarityMatrix       -- fold cum
+                      -> RankMetric             -- distance func
+                      -> ECount                 -- rating records
                       -> SimilarityMatrix
 pairWiseSimilarity bar cumSM sfn ecount=
           let
