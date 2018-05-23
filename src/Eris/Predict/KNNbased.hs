@@ -42,8 +42,8 @@ c1 ecount nsim pid =do
 --  Based on the similairty matrix of this type of entity.
 --  collect its neighbors and sort by Order.
 --  return a list of tuple [(EID, Rank)] , rank value is necessary in case any further filter or verification process.
-neighborOf :: SimilarityMatrix -> Order -> CID -> NeighborSimilarity
-neighborOf matrix ord cus
+neighborOf :: Order -> CID -> SimilarityMatrix -> NeighborSimilarity
+neighborOf ord cus matrix
   | isNothing (Map.lookup cus matrix) = []
   | otherwise = let
       rlist = Map.toList matrix
@@ -53,7 +53,7 @@ neighborOf matrix ord cus
         collectRank :: [(EID, Map.HashMap EID Rank)] -> EID -> NeighborSimilarity
         collectRank ((eid,edict) : exs) tid
             | eid == tid = Map.toList edict
-            | otherwise = (tid,Map.lookupDefault 0 tid edict): collectRank exs tid
+            | otherwise = (eid,Map.lookupDefault 0 tid edict): collectRank exs tid
         sortByRank :: NeighborSimilarity -> Order -> NeighborSimilarity
         sortByRank nr o = let
             ascOrder = quickSortRank nr

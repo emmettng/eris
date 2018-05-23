@@ -49,12 +49,12 @@ empESMap = Map.empty
 psCSVData :: String
 --psCSVData = "./source/test_dataset.csv"
 psCSVData = "./source/sku_phone_82k.csv"
-
+surpriseCSVData = "./source/surprise-ml-100k.csv"
 -- psTestData :: MonadIO m => m
 
-psTestData :: ExceptT String IO (Vector SaleRecord)
-psTestData = do
-    csvData <- liftIO $ BL.readFile psCSVData
+psTestData ::FilePath -> ExceptT String IO (Vector SaleRecord)
+psTestData fp = do
+    csvData <- liftIO $ BL.readFile fp 
     case decode NoHeader csvData of
         Left err -> fail err
         Right v -> return v
