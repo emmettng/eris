@@ -15,8 +15,8 @@ import Eris.Compute.Similarity
 -- f1 : filter neighbors of A which related to entity of the other type .
 -- c1 : retrive relation between two type of entity.
 -- t : compute knnbased recommendataion.
-t :: NeighborSimilarity-> NeighborRank -> Maybe Rank
-t ns nr
+t :: NeighborRank -> NeighborSimilarity-> Maybe Rank
+t nr ns
     | length ns /= length nr = Nothing
     | otherwise = Just $ knnbased  ns nr
     where knnbased ns nr =  let
@@ -25,14 +25,14 @@ t ns nr
                             in  v1 NL.<.> v2 / NL.norm_1 v1
 
 
-f1 :: ECount -> NeighborSimilarity -> PID -> NeighborSimilarity
-f1 ecount nsim pid = do
+f1 :: PID -> ECount -> NeighborSimilarity -> NeighborSimilarity
+f1 pid ecount nsim = do
     r@(eid,_) <- nsim
     guard $ validRecord ecount eid pid
     return r
 
-c1 :: ECount -> NeighborSimilarity -> PID -> NeighborRank
-c1 ecount nsim pid =do
+c1 :: PID -> ECount -> NeighborSimilarity -> NeighborRank
+c1 pid ecount nsim =do
                     (eid, _) <- nsim
                     let justRank = getRank ecount eid pid
                     guard $ isJust justRank
@@ -75,7 +75,7 @@ validRecord ec c p=
         let cContainsP = do
                           pdict <- Map.lookup c ec
                           Map.lookup p pdict
-        in isNothing cContainsP
+        in isJust cContainsP
 
 getRank :: ECount -> CID -> PID -> Maybe Rank
 getRank ec c p = do

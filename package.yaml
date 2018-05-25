@@ -60,3 +60,11 @@ tests:
 #    - -with-rtsopts=-N
 #    dependencies:
 #    - QuickCheck
+
+benchmarks:
+  compute-benchmark:
+    main:                 CriterionEris.hs
+    source-dirs:          bench
+    dependencies:
+    - criterion
+    - eris

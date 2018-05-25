@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c525dbb67d82aceb80a13269945c39ace5cffe20f98a50ee5e08de79946f4aa5
+-- hash: 9dc8f5412e277c7ad66067f6461d708c12a039fb7c57553b473e0a96002633ac
 
 name:           eris
 version:        0.1.0.0
@@ -62,5 +62,19 @@ test-suite eris-test
   other-modules:
       Quick
       Test.TestSimilarity
+      Paths_eris
+  default-language: Haskell2010
+
+benchmark compute-benchmark
+  type: exitcode-stdio-1.0
+  main-is: CriterionEris.hs
+  hs-source-dirs:
+      bench
+  build-depends:
+      base >=4.7 && <5
+    , criterion
+    , eris
+  other-modules:
+      Criterion.ComputeBenchmark
       Paths_eris
   default-language: Haskell2010
