@@ -1,13 +1,13 @@
-![eris logo](imgs/logo_grey.png)
-# eris
+![eris logo](imgs/logo_small.png)
+# Eris
 
 Eris is a haskell library that being designed to provide recommendation functionality. It will basically follow the structure of the [Surprise](https://github.com/NicolasHug/Surprise) a python recommendation library.
 
-At currently stage it is a note for learning Haskell, to record all necessary application structure and all kinds of usage of stack in real world.
+At currently stage it is a note for learning Haskell, to record all necessary application structure and all kinds of usage of [stack](https://github.com/commercialhaskell/stack/blob/master/doc/GUIDE.md) in real world.
 
 Development schedule:
   1. Basic functionality of Surprise. (Doing)
-  2. Refactor to be able to use Haskell cocurrent. (TODO)
+  2. Refactor to be able to use Haskell [cocurrent framework](https://www.safaribooksonline.com/library/view/parallel-and-concurrent/9781449335939/index.html). (TODO)
   3. Modify the implementation of algorithms to be able to integrate with cloud haskell. (Is is really possible?)
 
 - ### source file
