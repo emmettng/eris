@@ -1,4 +1,4 @@
--- |
+- |
 -- Module         : Eris.Compute.Similarity
 -- Copyright      : (c) 2018 Emmett H. Ng
 -- License        : BSD3
@@ -8,6 +8,8 @@
 -- Portability    : portable
 --
 -- Functions of computing pairwise similarity and similarity matrix.
+-- Documents:
+-- 1. https://numerics.mathdotnet.com/Distance.html 
 
 module Eris.Compute.Similarity
     (
@@ -27,45 +29,54 @@ import Numeric.LinearAlgebra
 import Eris.Meta.DataStructure
 
 
--- | L1-norm
+-- | L1-norm (SAD)
 sumAbsoluteDifference:: RankMetric
 sumAbsoluteDifference l1 l2 = norm_1 (v1 - v2)
     where v1 = vector l1
           v2 = vector l2
 
 
--- | Mean absolute Error
+-- | Mean absolute Error (MAD)
 meanAbsoluteDifference :: RankMetric
-meanAbsoluteDifference l1 l2 = l1norm / d
+meanAbsoluteDifference l1 l2 = l1norm / n
     where l1norm = sumAbsoluteDifference l1 l2
-          d = fromIntegral . length $ l1
+          n = fromIntegral . length $ l1
 
 -- | Manhattan Distance is l1 norm.
 manhattanDistance :: RankMetric
 manhattanDistance = sumAbsoluteDifference
 
 
--- | Squared L2-norm
+-- | Squared L2-norm (SSD)
 sumSquaredDifference :: RankMetric
 sumSquaredDifference l1 l2 = v <.> v
     where v = vector l1 - vector l2
 
--- | Mean Sqaured Error
+-- | Mean Sqaured Error (MSE)
 meanSquaredDistance :: RankMetric
-meanSquaredDistance l1 l2 = squaredL2 / d
+meanSquaredDistance l1 l2 = squaredL2 / n
     where squaredL2 = sumSquaredDifference l1 l2
-          d = fromIntegral . length $ l1
+          n = fromIntegral . length $ l1
 
+-- | L2-normal           
 euclideanDistance :: RankMetric
 euclideanDistance l1 l2 = norm_2 v
     where v = vector l1 - vector l2
 
+
+-- | Measure of similairty between two NON-ZERO vectors
+-- See note/similarities.md for more information.
 cosineSimilarity :: RankMetric
 cosineSimilarity l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where
         v1 = vector l1
         v2 = vector l2
 
+-- | need to add more about 
+-- angular similarity
+-- angular distance ( valid metric function )
+-- quickcheckout doc
+-- pearsonCC and zscore relation doc
 cosineDistance :: RankMetric
 cosineDistance l1 l2 = 1 - cosineSimilarity l1 l2
 
@@ -88,16 +99,17 @@ pearsonCC' l1 l2 = z1 <.> z2 /d
           z2 = zScore l2
           d = fromIntegral . length $ l1
 
--- | a little bit involove actually
--- Standard deviation = l2normV / sqart d
--- z-score = v / standard deviation
+-- | a little bit involove actuallec
+-- n : vector 
+-- std: popultaion standard deviation
+-- z-score = v / std
 zScore :: [Rank] -> Vector Rank
-zScore xs = scale (sqrt d / l2normV ) v
+zScore xs = scale (recip std) v
     where x = vector xs
-          d = fromIntegral . length $ xs
-          meanX = sumElements x / d
+          n = fromIntegral . length $ xs
+          meanX = sumElements x / n
           v = x - vector [meanX]
-          l2normV = norm_2 v
+          std = norm_2 v / sqrt n 
 
 -- | merge two sorted list
 

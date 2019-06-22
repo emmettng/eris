@@ -3,19 +3,18 @@ module Eris.Meta.DataStructure where
 
 import qualified Data.Set as DS
 import qualified Data.HashMap.Strict as Map
-import qualified Data.ByteString.Lazy.Char8 as B
+-- import qualified Data.ByteString.Lazy.Char8 as B
+import qualified Data.ByteString.Short as B
 import GHC.Generics (Generic)
 import Data.Csv
 
 type Threshold = Integer
 
--- | Element ID
--- Each Eelement is has an unique ID, and based upon different measurements of inviduls of the same type, the difference could be identified with different dimensions.
 
 -- | EID : Entity ID
 -- Entity represent either products or customers
 -- It must be discete
-type EID = B.ByteString
+type EID = B.ShortByteString
 type CID = EID
 type PID = EID
 type Neighbors = [EID]
@@ -53,7 +52,7 @@ type RankMetric = [Rank] -> [Rank] -> Rank
 
 
 -- | SaleRecord to be able to parse by Data.Csv
-data SaleRecord =  SaleRecord { sku::B.ByteString, cid::B.ByteString, cRanking::Double} deriving  (Generic, Show)
+data SaleRecord =  SaleRecord { sku::EID , cid::EID, cRanking::Double} deriving  (Generic, Show)
 
 instance FromNamedRecord SaleRecord
 instance ToNamedRecord SaleRecord
