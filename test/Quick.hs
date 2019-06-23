@@ -1,4 +1,4 @@
-module Main where
+module Quick where
 import Test.QuickCheck
 import Data.List
 

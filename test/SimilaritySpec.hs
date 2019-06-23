@@ -1,4 +1,4 @@
-module Test.TestSimilarity where
+module SimilaritySpec where
 
 import Test.Hspec
 import Test.QuickCheck
@@ -6,11 +6,9 @@ import Data.List
 
 import Eris.Compute.Similarity
 
-tl1 = [1,-1,2,-2]
-tl2 = [-1,1,-2,2]
 
-similarityHspec :: Spec
-similarityHspec = do
+spec :: Spec
+spec = do
     describe "Sum Absolute Difference" $ do
       it "Naive test: based on L1 norm" $
         sumAbsoluteDifference [1,-1,2,-2] [-1,1,-2,2] `shouldBe` 12
@@ -23,9 +21,9 @@ similarityHspec = do
         \l1 l2 -> (length l1 /= length l2)  || (meanAbsoluteDifference l2 l1 == (sum (fmap abs (zipWith (-) l1 l2))) / fromIntegral (length l2))
 
     describe "Cosine Similarity: " $ do
-      it "The vector and itself is one." $ do
+      it "The vector and itself is one." $ 
         (fromInteger. round) (cosineSimilarity [1.0,1.0,1.0] [1.0,1.0,1.0]) `shouldBe` (1.0:: Double)
-      it "The similarity of two linear dependent vetors is 1 " $ do
+      it "The similarity of two linear dependent vetors is 1 " $ 
         (fromIntegral . round) (cosineSimilarity [1,2] [1,3]) `shouldBe` (1.0 :: Double)
 
       it "The vector and any perpendicular vector is 0." $ do
@@ -50,3 +48,6 @@ similarityHspec = do
           (pearsonCC l1 l2) `shouldBe` (cosineSimilarity l1 l2)
         it "pearson CC base on z score: " $ do
           (pearsonCC l1 l2) `shouldBe` (pearsonCC' l1 l2)
+    where 
+        tl1 = [1,-1,2,-2]
+        tl2 = [-1,1,-2,2]

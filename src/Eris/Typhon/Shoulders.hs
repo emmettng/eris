@@ -60,25 +60,27 @@ psTestData fp = do
         Right v -> return v
 
 records2eCount :: GroupName -> Vector SaleRecord -> ECount
-records2eCount gname vec = case gname of
-    "sku" -> V.foldr (gEcount sku cid) empECount vec
-    "cid" -> V.foldr (gEcount cid sku) empECount vec
-    _ -> empECount
-    where gEcount :: (SaleRecord -> BL.ByteString) ->     (SaleRecord -> BL.ByteString) -> SaleRecord -> ECount -> ECount
-          gEcount fn1 fn2 sr cumMap =
-              let key = fn1 sr
-                  innerKey = fn2 sr
-                  rank = cRanking sr
-                  tmpMap = Map.lookupDefault empESMap key cumMap
-                  newtmpMap = updateESMap innerKey rank tmpMap
-              in Map.insert key newtmpMap cumMap
+records2eCount = undefined
+-- records2eCount gname vec = case gname of
+    -- "sku" -> V.foldr (gEcount sku cid) empECount vec
+    -- "cid" -> V.foldr (gEcount cid sku) empECount vec
+    -- _ -> empECount
+    -- where gEcount :: (SaleRecord -> BL.ByteString) ->     (SaleRecord -> BL.ByteString) -> SaleRecord -> ECount -> ECount
+    --       gEcount fn1 fn2 sr cumMap =
+    --           let key = fn1 sr
+    --               innerKey = fn2 sr
+    --               rank = cRanking sr
+    --               tmpMap = Map.lookupDefault empESMap key cumMap
+    --               newtmpMap = updateESMap innerKey rank tmpMap
+    --           in Map.insert key newtmpMap cumMap
 
 updateESMap :: (Eq k,Hashable k, Num a) => k -> a -> Map.HashMap k a -> Map.HashMap k a
 updateESMap = Map.insertWith (+)
 
 
 updateAnother :: BL.ByteString -> Double -> ESMap -> ESMap
-updateAnother = Map.insertWith (+)
+updateAnother = undefined
+-- updateAnother = Map.insertWith (+)
 
 updateMap :: (Eq k, Hashable k, Num v) => k -> v -> Map.HashMap k v -> Map.HashMap k v
 updateMap k v m =

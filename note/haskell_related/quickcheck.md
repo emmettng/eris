@@ -17,3 +17,6 @@
 > - [QuickCheck: a lightweight tool for random testing of Haskell programs](https://doi.org/10.1145/1988042.1988046)
 > - [Testing monadic code with QuickCheck](doi.org/10.1145/581690.581696)
 > - [QuickCheck Testing for Fun and Profit](www.cs.um.edu.mt/~svrg/FormalMethods/2012-2013/QuickCheck.pdf)
+
+>Hspec
+> - Automatic spec discovery[https://hspec.github.io/hspec-discover.html]

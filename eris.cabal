@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8259ff0598afc3322f203443d666ca9c569d38d4b3302ed0522238c9ff5e7ba5
+-- hash: 1e07dc8a1fe36c92a036136271f7d1154ff0c06d3790f1984fa69bbe4b6b5cfd
 
 name:           eris
 version:        0.1.0.0
@@ -36,15 +36,16 @@ library
     , containers
     , hashable
     , hmatrix
+    , hspec
     , mtl
     , unordered-containers
     , vector
   exposed-modules:
       Eris.Compute.Similarity
+  other-modules:
       Eris.Meta.DataStructure
       Eris.Predict.KNNbased
       Eris.Typhon.Shoulders
-  other-modules:
       Paths_eris
   default-language: Haskell2010
 
@@ -61,7 +62,7 @@ test-suite eris-test
     , hspec
   other-modules:
       Quick
-      Test.TestSimilarity
+      SimilaritySpec
       Paths_eris
   default-language: Haskell2010
 

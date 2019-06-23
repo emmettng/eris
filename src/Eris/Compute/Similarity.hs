@@ -1,4 +1,4 @@
-- |
+-- |
 -- Module         : Eris.Compute.Similarity
 -- Copyright      : (c) 2018 Emmett H. Ng
 -- License        : BSD3
@@ -36,7 +36,7 @@ sumAbsoluteDifference l1 l2 = norm_1 (v1 - v2)
           v2 = vector l2
 
 
--- | Mean absolute Error (MAD)
+-- | Mean absolute Difference (MAD)
 meanAbsoluteDifference :: RankMetric
 meanAbsoluteDifference l1 l2 = l1norm / n
     where l1norm = sumAbsoluteDifference l1 l2
@@ -66,19 +66,36 @@ euclideanDistance l1 l2 = norm_2 v
 
 -- | Measure of similairty between two NON-ZERO vectors
 -- See note/similarities.md for more information.
+-- cosine similarity and cosine distance are not metric function.
 cosineSimilarity :: RankMetric
 cosineSimilarity l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where
         v1 = vector l1
         v2 = vector l2
 
--- | need to add more about 
--- angular similarity
--- angular distance ( valid metric function )
--- quickcheckout doc
--- pearsonCC and zscore relation doc
+-- | Cosine Distance is not metric function 
+-- as it does not have the triangle inequality property
+-- see angular similarity and angular distance (valid metric function) below.
 cosineDistance :: RankMetric
 cosineDistance l1 l2 = 1 - cosineSimilarity l1 l2
+
+
+-- | angular distance represent the radians between two vector
+-- it satisfies the triangle inequality 
+-- in a recommendation system, it is assumed that all vectors are  positive.
+angularDistance :: RankMetric 
+angularDistance l1 l2 = 
+    let sim = cosineSimilarity l1 l2 
+        inverSim = acos sim 
+    in 2 * inverSim / pi
+
+angularSimilarity :: RankMetric
+angularSimilarity l1 l2 = 1 - angularSimilarity l1 l2 
+
+-- quickcheckout doc
+-- pearsonCC and zscore relation doc
+
+
 
 -- | Pearson Correlation Coefficient
 -- It is cosine similarity between centered vectors.
@@ -105,11 +122,21 @@ pearsonCC' l1 l2 = z1 <.> z2 /d
 -- z-score = v / std
 zScore :: [Rank] -> Vector Rank
 zScore xs = scale (recip std) v
-    where x = vector xs
+    where 
+          x = vector xs
           n = fromIntegral . length $ xs
           meanX = sumElements x / n
           v = x - vector [meanX]
           std = norm_2 v / sqrt n 
+
+-- | A common operation is to subtracte mean 
+-- For performance reason, this function may not be exported.
+centering :: [Rank] -> Vector Rank
+centering xs = v - vector [vmean]
+    where 
+        v = vector xs
+        n = fromIntegral . length $ xs
+        vmean = sumElements v / n 
 
 -- | merge two sorted list
 
