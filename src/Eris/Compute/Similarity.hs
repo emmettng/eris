@@ -29,23 +29,36 @@ import Numeric.LinearAlgebra
 import Eris.Meta.DataStructure
 
 
--- | L1-norm (SAD)
+
+
+-- | Manhattan Distance is Absolute Value Norm(L1) of (v1-v2)
+manhattanDistance :: RankMetric
+manhattanDistance = sumAbsoluteDifference
+
+-- | Taxicab metric is Absolute Value Norm (L1) of (v1 - v2)
+taxicab :: RankMetric
+taxicab = sumAbsoluteDifference
+
+-- | SAD is Absolute Value Norm(L1) of (v1 - v2)
 sumAbsoluteDifference:: RankMetric
 sumAbsoluteDifference l1 l2 = norm_1 (v1 - v2)
     where v1 = vector l1
           v2 = vector l2
 
-
 -- | Mean absolute Difference (MAD)
+-- | SAD average on all dimensions
 meanAbsoluteDifference :: RankMetric
 meanAbsoluteDifference l1 l2 = l1norm / n
     where l1norm = sumAbsoluteDifference l1 l2
           n = fromIntegral . length $ l1
 
--- | Manhattan Distance is l1 norm.
-manhattanDistance :: RankMetric
-manhattanDistance = sumAbsoluteDifference
 
+
+
+-- | L2-normal           
+euclideanDistance :: RankMetric
+euclideanDistance l1 l2 = norm_2 v
+    where v = vector l1 - vector l2
 
 -- | Squared L2-norm (SSD)
 sumSquaredDifference :: RankMetric
@@ -58,10 +71,7 @@ meanSquaredDistance l1 l2 = squaredL2 / n
     where squaredL2 = sumSquaredDifference l1 l2
           n = fromIntegral . length $ l1
 
--- | L2-normal           
-euclideanDistance :: RankMetric
-euclideanDistance l1 l2 = norm_2 v
-    where v = vector l1 - vector l2
+
 
 
 -- | Measure of similairty between two NON-ZERO vectors
