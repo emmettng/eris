@@ -110,6 +110,7 @@ angularSimilarity l1 l2 = 1 - angularSimilarity l1 l2
 -- | Pearson Correlation Coefficient
 -- It is cosine similarity between centered vectors.
 -- reference to : https://stats.stackexchange.com/questions/235673/is-there-any-relationship-among-cosine-similarity-pearson-correlation-and-z-sc
+-- necessity of centering : https://www.theanalysisfactor.com/center-on-the-mean/
 pearsonCC :: RankMetric
 pearsonCC l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
     where len = fromIntegral . length $ l1
@@ -120,6 +121,7 @@ pearsonCC l1 l2 = v1 <.> v2 / (norm_2 v1 * norm_2 v2)
           v1 = tv1 - vector [m1]
           v2 = tv2 - vector [m2]
 
+-- | Test shows that this implementation is supresingly better than above.
 pearsonCC' :: RankMetric
 pearsonCC' l1 l2 = z1 <.> z2 /d
     where z1 = zScore l1
