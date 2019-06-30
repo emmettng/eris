@@ -72,6 +72,37 @@ meanSquaredDistance l1 l2 = squaredL2 / n
           n = fromIntegral . length $ l1
 
 
+          
+-- | Minkowski Distance
+-- This is a degenerate case of Minkowski distance 
+-- in this case p is an Integral number for sure.
+minkowskiDistance :: Int -> RankMetric 
+minkowskiDistance p l1 l2 = 
+  let ld = zipWith (-) l1 l2
+      absV = vector $! abs <$> ld
+  in  nroot p $ norm_1 $ pow p absV 
+  where 
+        pow :: Int -> Vector Rank -> Vector Rank
+        pow 0 cv  = 1 
+        pow 1 cv  = cv
+        pow n cv  = pow (n-1) $! cv * cv
+        nroot :: (Integral a , Floating b) => a -> b -> b
+        nroot 0 _ = 1
+        nroot n f = f ** (1/fromIntegral n)
+-- | Chebyshev Distance
+chebyshevDistance :: RankMetric
+chebyshevDistance l1 l2  = 
+  let ld = abs <$> zipWith (-) l1 l2
+  in maximum ld
+
+-- | Canberra Distance 
+-- weighted L1 norm
+canberraDistance :: RankMetric 
+canberraDistance l1 l2 = l1norm / (l1s + l2s)
+  where
+      l1norm = sumAbsoluteDifference l1 l2
+      l1s = sum $ abs <$> l1
+      l2s = sum $ abs <$> l2
 
 
 -- | Measure of similairty between two NON-ZERO vectors

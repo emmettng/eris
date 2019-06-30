@@ -1,3 +1,144 @@
+
+
+```
+ quickCheck :: quickCheck :: Testable prop => prop -> IO ()
+```
+
+```
+quickCheckWith :: quickCheckWith :: Testable prop => Args -> prop -> IO ()
+```
+
+```
+verboseCheck :: Testable prop => prop -> IO ()
+```
+
+## Properties
+
+Properties must have monomorphic types. `Polymorphic' properties, such as the one above, must be restricted to a particular type to be used for testing. It is convenient to do so by stating the types of one or more arguments in a
+
+> - **==>**
+> Condition Properties. A filter function : discards test cases which do not satisfy the condition, Test case generation continues until 100 cases which do satisfy the condition have been found, or until an overall limit on the number of test cases is reached (to avoid looping if the condition never holds).
+> ```
+> (==>) :: Testable prop => Bool -> prop -> Property
+>   	-- Defined in ‘Test.QuickCheck.Property’
+> ```
+
+> - **forAll** 
+>Quantified Properties. The first argument of `forAll` is a test data generator; by supplying a custom generator, instead of using the default generator for that type, it is possible to control the **distribution** of test data. 
+> ```
+> forAll ::
+>   (Show a, Testable prop) => Gen a -> (a -> prop) -> Property
+>   	-- Defined in ‘Test.QuickCheck.Property’
+> ```
+
+
+> **Observing Test Case Distribution**
+> It is important to be aware of the distribution of test cases: if test data is not well distributed then conclusions drawn from the test results may be invalid. In particular, the ==> operator can skew the distribution of test data badly, since only test data which satisfies the given condition is used.
+>> -  **classify**
+>> Classifying Test Cases. Test cases satisfying the condition are assigned the classification given, and the distribution of classifications is reported after testing. In this case the result is
+>> 
+>> ```
+>> classify :: Testable prop => Bool -> String -> prop -> Property
+>>   	-- Defined in ‘Test.QuickCheck.Property’
+>> ```
+> 
+>> - **collect**
+>> Collecting Data Values. The argument of collect is evaluated in each test case, and the distribution of values is reported. The type of this argument must be in class Show
+>> 
+>> ```
+>> classify :: Testable prop => Bool -> String -> prop -> Property
+>>   	-- Defined in ‘Test.QuickCheck.Property’
+>> ```
+> 
+> `classify` and `collect` may be combined in any way. All the observations of each test case are combined, and the distribution of these combinations is reported. For example, testing the property
+> ```
+> examples: TO DO
+> ```
+
+> Test Data Generators: The Type Gen  
+> Test data is produced by test data generators. QuickCheck defines default generators for most types, but you can use your own with forAll, and will need to define your own generators for any new types you introduce.
+> Generators have types of the form Gen a; this is a generator for values of type a. The type Gen is a monad, so Haskell's do-syntax and standard monadic functions can be used to define generators.
+>> - **choose**
+>> which makes a random choice of a value from an interval, with a uniform distribution.
+>> ```
+>> choose :: random-1.1:System.Random.Random a => (a, a) -> Gen a
+>>   	-- Defined in ‘Test.QuickCheck.Gen’
+>> ```
+>>  For example, to make a random choice between the elements of a list
+>>  ```
+>>  do i<-choose (0,length xs-1)
+>>    return (xs!!i)
+>>  ```
+> 
+>> - **oneof** 
+>> Choosing between alternatives. A generator may take the form
+>> 	```oneof <list of generators>```
+>> which chooses among the generators in the list with equal probability. 
+>> ```
+>> oneof :: [Gen a] -> Gen a 	-- Defined in ‘Test.QuickCheck.Gen’
+>> ```
+> 
+>> - **frequency**
+>> We can control the distribution of results using the function.Frequency chooses a generator from the list randomly, but weights the probability of choosing each alternative by the factor given.
+>> ```
+>> frequency :: [(Int, Gen a)] -> Gen a
+>>   	-- Defined in ‘Test.QuickCheck.Gen’
+>> ```
+>> for example, 
+>> ```frequency [(2,return True), (1,return False)]```
+>> generates True two thirds of the time.
+>
+>
+>> - **Generating Recursive Data Types**
+>> Generators for recursive data types are easy to express using oneof or frequency to choose between constructors, and Haskell's standard monadic combinators to form a generator for each case. For example, if the type of trees is defined by. For example:
+>> ```
+>> prime
+>> ```
+>> However, there is always a risk that a recursive generator like this may fail to terminate, or produce very large results. To avoid this, recursive generators should always use the **size control mechanism**. For example:
+>> ```
+>> Tree example
+>> ```
+
+
+
+
+> - **sized**
+> Test data generators have an implicit size parameter; quickCheck begins by generating small test cases, and gradually increases the size as testing progresses. Different test data generators interpret the size parameter in different ways: some ignore it, while the list generator, for example, interprets it as an upper bound on the length of generated lists. You are free to use it as you wish to control your own test data generators.
+> ```
+> sized :: (Int -> Gen a) -> Gen a
+>   	-- Defined in ‘Test.QuickCheck.Gen’
+> ```
+> example:
+> ```
+> TODO
+> ```
+
+>- **Generator Combinators**
+>>- **vectorOf**
+>>If `g` is a generator for type `t`, then
+>>`vectorOf n g generates a list of n `t`s
+>>```
+>>vectorOf :: Int -> Gen a -> Gen [a]
+>>  	-- Defined in ‘Test.QuickCheck.Gen’
+>>```
+>
+>>- **elements**
+>>If `xs` is a list, then `elements xs` generates an arbitrary element of `xs`.
+>>
+>>```
+>>elements :: [a] -> Gen a 	-- Defined in ‘Test.QuickCheck.Gen’
+>>```
+
+>- **Tip: Using newtype**
+>want a different distribution
+>Of course, you can write a custom test data generator for variable names, maybe choosing randomly from a small set, and try to remember to use it wherever a string plays the role of a name. But this is error prone. Much better is to define a new type of names, isomorphic to String, and make your custom generator the default for it. For example,
+>
+>newtype Name = Name String
+>
+>instance Arbitrary Name where
+>  `arbitrary = oneof ["a", "b", "c", "d", "e"]`
+
+
 # [QuickCheck](http://hackage.haskell.org/package/QuickCheck) Note
 > resources:
 > - Haskell Programming from first principles (chapter 12)
