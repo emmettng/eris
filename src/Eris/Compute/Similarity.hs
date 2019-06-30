@@ -90,6 +90,7 @@ minkowskiDistance p l1 l2 =
         nroot 0 _ = 1
         nroot n f = f ** (1/fromIntegral n)
 -- | Chebyshev Distance
+-- 
 chebyshevDistance :: RankMetric
 chebyshevDistance l1 l2  = 
   let ld = abs <$> zipWith (-) l1 l2
@@ -103,6 +104,7 @@ canberraDistance l1 l2 = l1norm / (l1s + l2s)
       l1norm = sumAbsoluteDifference l1 l2
       l1s = sum $ abs <$> l1
       l2s = sum $ abs <$> l2
+
 
 
 -- | Measure of similairty between two NON-ZERO vectors

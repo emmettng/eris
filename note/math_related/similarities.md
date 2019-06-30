@@ -43,6 +43,9 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 > $$d_{CAD}:(x,y) \mapsto \sum_{i=1}^{n} \frac{|x_i-y_i|}{|x_i|+|y_i|}$$
 > - **Canberra Distance**
 > The Canberra distance is a weighted version of the Manhattan distance (**l1-norm**).
+>> Functional geometry related usage:
+>> https://pdfs.semanticscholar.org/a298/02f53f3bcf348e2c9a95df748277ae7571c5.pdf
+>> http://shashi.biz/ijulia-notebooks/funcgeo/
 
 > - 
 > **To DO**
@@ -52,31 +55,45 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 > Kullback-Leibler Divergence
 > etc...
 
+> - **cosine similarity**
+> $$s_{cos}:(x,y) \mapsto \frac{<x,y>}{||x||_2||y||_2} =\frac{\sum_{i=1}^{n}x_iy_i}{\sqrt{\sum_{i=1}^{n}x_i^2}\sqrt{\sum_{i=1}^{n}y_i^2}} $$
+> $$s_{cos}(x,y) =\frac{ x \cdot y}{norm_2(x) * norm_2(y)} = \frac{x \cdot y}{||x||_2 * ||y||_2} $$
+> ![cosin similarity](/imgs/cosineSimi.png)
+> 1. $$ (x - \rho y) \cdot y = 0$$
+> 2. $$\cos \theta = \frac{\rho * norm_2(y)}{norm_2(x)} = \frac{\rho * ||y||_2}{||x||_2}$$
+> from equation 1 we have: 
+> 3. $$ x \cdot y = \rho ||y||_2^2$$
+> from equation 2 we have: 
+> 4. $$ \rho = \frac{\cos \theta * ||x||_2}{||y||_2}$$
+> replace $\rho$ in euqation 3 with the definition of $\rho$ in equation 4, we have:
+> 5. $$ x \cdot y = \cos \theta * ||x||_2 * ||y||_2$$
+> therefore:
+> $$s_{cos}(x,y) = \cos \theta = \frac{x \cdot y}{||x||_2 * ||y||_2} = \frac{ x \cdot y}{norm_2(x) * norm_2(y)}$$ 
+>
+>> - **cosine distance** = 1 - cosine similarity
+>> $ d_{cos} = 1 - s_{cos}$
+>> Cosine Distance is not metric function,  as it does not have the triangle inequality property, see angular similarity and angular distance (valid metric function) below.
+>
+>> - **angular distance** 
+>> angular distance represent the radians between two vector, it satisfies the triangle inequality , in a recommendation system, it is assumed that all vectors are  positive.
+>>  $$d_{ang}(x,y) = \frac{2 * \cos^{-1}s_{cos}(x,y)}{\pi}$$
+>
+>> - **angular similarity** 
+>> $s_{ang} = 1 - d_{ang}$
 
-=== part one ==
+
+> - **Pearson correlation** , **z score** and **cosine similarity**
+> zscore use population standard deviation
+
+=== intuitive discussion ==
 understanding all these distance, such as
 L1 norm vs L2 norm
+normalization
 
-=== part three == 
 
 - Standard deviation 
     - population standard deviation 
     - sample standard deviation
-
-### Cosine Similarity
-
-$\begin{aligned}
-r_r(k) &= \frac{\sum_{j \in A_k} c_{r,j}}{|A_k|}\;, \\
-r_c(k) &= \frac{\sum_{j \in A_k} c_{c,j}}{|A_k|}\;, \\
-k_{nn}(k) &= \frac{\sum_{j \in A_k} k_j}{|A_k|}\;.
-\end{aligned}$
-
-- cosine similarity:
-- cosine distance:
-- angular similarity:
-- angular distance:
-
-- z-score
 
 - pearsoncorrelation 
     - z-score == centered
