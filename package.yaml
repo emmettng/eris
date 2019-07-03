@@ -51,6 +51,7 @@ tests:
     - eris
     - hspec
     - QuickCheck
+    - hmatrix                 ## Numeric.LinearAlgebra
   # quick-test:
   #   main:               Quick.hs
   #   source-dirs:        test

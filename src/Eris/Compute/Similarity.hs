@@ -14,10 +14,19 @@
 module Eris.Compute.Similarity
     (
       sumAbsoluteDifference,
+      manhattanDistance,
+      taxicab,
       meanAbsoluteDifference,
+      euclideanDistance,
+      sumSquaredDifference,
+      meanSquaredDistance,
+      minkowskiDistance,
+      chebyshevDistance,
+      canberraDistance,
       cosineDistance,
       cosineSimilarity,
-      meanSquaredDistance,
+      angularDistance,
+      angularSimilarity,
       pearsonCC,
       pearsonCC',
       pairWiseSimilarity
