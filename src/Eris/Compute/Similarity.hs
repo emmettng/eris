@@ -105,6 +105,10 @@ chebyshevDistance l1 l2  =
   let ld = abs <$> zipWith (-) l1 l2
   in maximum ld
 
+-- | Hanmming Distance is minkowskiDistance with p=0
+hammingDistance :: RankMetric
+hammingDistance = minkowskiDistance 0
+
 -- | Canberra Distance 
 -- weighted L1 norm
 canberraDistance :: RankMetric 
@@ -146,8 +150,6 @@ angularSimilarity l1 l2 = 1 - angularSimilarity l1 l2
 
 -- quickcheckout doc
 -- pearsonCC and zscore relation doc
-
-
 
 -- | Pearson Correlation Coefficient
 -- It is cosine similarity between centered vectors.
