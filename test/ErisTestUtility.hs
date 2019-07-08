@@ -1,4 +1,7 @@
 module ErisTestUtility where 
+import Data.List 
+
+average xs = realToFrac (sum xs) / genericLength xs
 
 relativeEq :: Int -> Double -> Double -> Int
 relativeEq deci n1 n2 =

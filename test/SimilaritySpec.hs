@@ -12,11 +12,17 @@ import ErisTestUtility
 
 spec :: Spec
 spec = do
-    describe "Sum Absolute Difference (l1-norm)" $ do
-      it "hspec test: SAD is based on L1 norm" $
-        sumAbsoluteDifference [1,-1,2,-2] [-1,1,-2,2] `shouldBe` 12
-      it "Pro test: symmetric"$ property $ -- update this property
+    describe "L1-norm based. Property tests:" $ do
+      it "SAD is L1 norm of the difference of two vectors:" $ property $
+        \v1 v2 -> (length v1 /= length v2) || sumAbsoluteDifference v1 v2 == sum ( abs <$> zipWith (-) v1 v2)
+      it "SAD is symmetric"$ property $ -- update this property
         \l1 l2 -> (length l1 /= length l2)  || (sumAbsoluteDifference l2 l1 == sum (fmap abs (zipWith (-) l1 l2)))
+      it "manhattanDistance is SAD" $ property $
+        \v1 v2 -> (length v1 /= length v2) || manhattanDistance v1 v2 == sumAbsoluteDifference v1 v2
+      it "taxicab distance is SAD" $ property $
+        \v1 v2 -> (length v1 /= length v2) || taxicab v1 v2 == sumAbsoluteDifference v1 v2
+      it "mean absolute distance is SAD average on number of dimension" $ property $
+        \v1 v2 -> (length v1 /= length v2) || meanAbsoluteDifference v1 v2 == average (abs <$> zipWith (-) v1 v2 :: [Double])
     describe "mean absolute Difference " $do
       it "naive test: based on Sum Absolute Difference" $
         meanAbsoluteDifference tl1 tl2 `shouldBe` sumAbsoluteDifference tl1 tl2 / (fromIntegral . length $ tl1)

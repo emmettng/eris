@@ -9,7 +9,7 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 ### 1. **norm** based 
 > - **$L_1$- norm** based
 > $$ \sum_i |(x_i-y_i)|$$
-> - **Sum Absolute Differece** of  $X$ and $Y$.  
+> - **Sum Absolute Differece(SAD)** of  $X$ and $Y$.  
 > - **Manhattan Distance**     of  $X$ and $Y$.  
 > - **Taxicab metric** of          $X$ and $Y$.  
 > - **$L_1$-norm** of $X-Y$ . 
@@ -57,14 +57,25 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >> Between two equal length of same type vectors(instance of Eq), it is the **number** of positions at which corresponding elements are **different**.
 
 
-> - **Intuitive Understanding** of **$L_1$-norm** and **L_2-norm**
+> - **Intuitive Understanding** of **$L_1$-norm** and **L_2-norm**   
+> In regression problem, people relay on metrics which are based on **$L_1$-norm** and **$L_2$-norm** a lot.
 > 
 >> - as **Loss/Risk function**
->>> 1. Uniqueness
->>![l2_uniquess_yes](/imgs/l2_loss_unique.png)
->>![l1_uniquess_no](/imgs/l1_loss_unique.png)
+>> As described in [wikipedia](https://en.wikipedia.org/wiki/Loss_function), risk function is the expect value of loss function.
+>> $$R(\theta,\delta) = E_\theta L(\theta,\delta(X))$$
+>> In supervised learning algorithms,  metric functions are wildly being used to describe the performance differences between our hypothesis(model) and the underground truth.   
 >>
->>>
+>>> 1. Uniqueness  
+>>> Assume the truth of $n$ time observation is vector: $Y = (y_1,y_2,...,y_n)$
+>>> The output of our hypothesis is: $H=(h_1,h_2,...,h_n)$.  
+>>> **$L_1$-norm** basd metric relay on fumular : 
+>>> $$\sum_i|y_i-h_i| = (|y_1-h_1| +|y_2-h_2|+...+ |y_i-h_i|)$$
+>>> The sum of two functions $f_1(h)= |y_1-h|$ and $f_2(h)= |y_2-h|$ will be a constant number in range $h\in[y_1,y_2]$ and the profe is trivial, since the absolute value of the derivative of these two function are constant number '1' and in range $h\in[y_1,y_2]$ their derivative has different direction so, the sum of these two function is guaranteed to be a staly number and this number is the minimal value of the sum of these two functions. So whenever we would like to minimus the loss which based on **$L_1$-norm** there is no guarantee that there will be a unique solution.   
+>> The blue line is : $f(h) = |2-x|$, the yellow is $f(h) = |8-x|$, the red is the sum.
+>>![l1_uniquess_no](/imgs/l1_loss_unique.png)
+>> Similarily, the first derivate of **$L_2$-norm** based loss function is $x$, it is possible to find, but there is only one minimual value of the sum of these functions.
+>>![l2_uniquess_yes](/imgs/l2_loss_unique.png)
+>>
 >>> 2. Robust
 >>> The robust property referse to tolerant variance of 'X', how every this 'X' in most machine learning case is the target, this cannot tolerate the out of domain of the input of a machine learning model. 
 >>> 3. Stability

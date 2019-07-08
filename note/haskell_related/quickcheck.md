@@ -1,4 +1,10 @@
 
+Quickcheck with Hspec name is `Model+Spec.hs`
+```
+Similarity
+  L1-norm based. Property tests:
+
+```
 
 ```
  quickCheck :: quickCheck :: Testable prop => prop -> IO ()
