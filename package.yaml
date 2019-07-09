@@ -40,27 +40,28 @@ library:
 
 
 tests:
-  eris-test:
-    main:                Spec.hs
-    source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - eris
-    - hspec
-    - QuickCheck
-    - hmatrix                 ## Numeric.LinearAlgebra
-  # quick-test:
-  #   main:               Quick.hs
-  #   source-dirs:        test
+  # eris-test:
+  #   main:                Spec.hs
+  #   source-dirs:         test
   #   ghc-options:
   #   - -threaded
   #   - -rtsopts
   #   - -with-rtsopts=-N
   #   dependencies:
+  #   - eris
+  #   - hspec
   #   - QuickCheck
+  #   - hmatrix                 ## Numeric.LinearAlgebra
+  quick-test:
+    main:               Examples.hs
+    source-dirs:        test/Quicknote
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - QuickCheck
+    - primes
 
 benchmarks:
   compute-benchmark:

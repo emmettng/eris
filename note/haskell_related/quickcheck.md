@@ -1,5 +1,13 @@
 
-Quickcheck with Hspec name is `Model+Spec.hs`
+Hspec name is `Model+Spec.hs`
+
+Quickcheck not usage:
+- exmaples in folder `tests/Quicknote`, the same as `source-dirs` in package.yaml
+- main model in file `Examples.hs`, the same as `main` in package.yaml
+- The model name of file `Examples.hs` must be `Main` rather than `Example` or `Quicknote.Example`.
+- The model name of file which is desgnated in `main` field in the package.yaml must be `Main`.
+- If there is more than one file in `tests/Quicknote` there mode name is the form `Quicknote.xxxx`.
+
 ```
 Similarity
   L1-norm based. Property tests:
