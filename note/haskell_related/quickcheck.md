@@ -1,7 +1,7 @@
 
 Hspec name is `Model+Spec.hs`
 
-Quickcheck not usage:
+Quickcheck stack project note:
 - exmaples in folder `tests/Quicknote`, the same as `source-dirs` in package.yaml
 - main model in file `Examples.hs`, the same as `main` in package.yaml
 - The model name of file `Examples.hs` must be `Main` rather than `Example` or `Quicknote.Example`.
@@ -26,43 +26,90 @@ quickCheckWith :: quickCheckWith :: Testable prop => Args -> prop -> IO ()
 verboseCheck :: Testable prop => prop -> IO ()
 ```
 
-## Properties
+## 1. Sample reminder
+```
+import Test.QuickCheck 
 
-Properties must have monomorphic types. `Polymorphic' properties, such as the one above, must be restricted to a particular type to be used for testing. It is convenient to do so by stating the types of one or more arguments in a
+prop_rev :: [a] -> Bool
+prop_rev xs = reverse (reverse xs) == xs
 
-> - **==>**
-> Condition Properties. A filter function : discards test cases which do not satisfy the condition, Test case generation continues until 100 cases which do satisfy the condition have been found, or until an overall limit on the number of test cases is reached (to avoid looping if the condition never holds).
+main = quickCheck prop_RevRev
+```
+The target function we would like to test is `reverse`.   
+The property of this target function is: If we apply this function twice `reverse (reverse xs)`, we will get the original list `xs`.  
+This proporty is being described as `reverse (reverse xs) == xs`  
+
+QuickCheck generates number of random values of type `a` and feed to function `prop_rev`.   
+
+The most commonly being used function is of type:
+```
+auxiFunc :: a -> Bool
+```
+This function is an instance of TypeClass `Testable`.
+
+## 2. Typical test flow
+TODO 
+with necessary chart    
+condition, generator, sized etc...
+
+## 3. Note
+>  
+> - **Properties**  
+> `Polymorphic` properties, such as the function `prop_rev` in simple remind, must be restricted to a particular type to be used for testing. Otherwise, there will be no clue for QuickCheck to generate test values.
+> ```
+> prop_rev :: [String] -> Bool
+> prop_rev xs = reverse (reverse xs) == xs
+> 
+> main = quickCheck prop_RevRev
+> ```
+> Without the type declaration in the first line, there will be following error:
+> ```
+> * Ambiguous type variable `a0' arising from a use of `quickCheck`...
+> ```
+
+> - **==>**  
+> **Condition**
 > ```
 > (==>) :: Testable prop => Bool -> prop -> Property
 >   	-- Defined in ‘Test.QuickCheck.Property’
 > ```
-
-> - **forAll** 
->Quantified Properties. The first argument of `forAll` is a test data generator; by supplying a custom generator, instead of using the default generator for that type, it is possible to control the **distribution** of test data. 
 > ```
+> fa a ==> auxiFunc
+> ```
+> - `fa :: [a] -> Bool` : A filter function, discards auto generated test cases which do not satisfy the condition, Test case generation continues until 100 cases which do satisfy the condition have been found, or until an overall limit on the number of test cases is reached (to avoid looping if the condition never holds).
+
+> - **forAll**    
+> ```  
 > forAll ::
 >   (Show a, Testable prop) => Gen a -> (a -> prop) -> Property
 >   	-- Defined in ‘Test.QuickCheck.Property’
 > ```
+>
+>Quantified Properties. The first argument of `forAll` is a test data generator; by supplying a custom generator, instead of using the default generator for that type, it is possible to control the **distribution** of test data. 
 
 
 > **Observing Test Case Distribution**
 > It is important to be aware of the distribution of test cases: if test data is not well distributed then conclusions drawn from the test results may be invalid. In particular, the ==> operator can skew the distribution of test data badly, since only test data which satisfies the given condition is used.
->> -  **classify**
+>> -  **classify**    
+>> ```
+>> classify :: Testable prop => Bool -> String -> prop -> Property
+>>   	-- Defined in ‘Test.QuickCheck.Property’
+>> ```
+>> `Bool` : Identify certain category.  
+>> `String`: Name that category.  
 >> Classifying Test Cases. Test cases satisfying the condition are assigned the classification given, and the distribution of classifications is reported after testing. In this case the result is
 >> 
->> ```
->> classify :: Testable prop => Bool -> String -> prop -> Property
->>   	-- Defined in ‘Test.QuickCheck.Property’
->> ```
+>
 > 
->> - **collect**
+>> - **collect**    `
+>> ```
+>> collect :: (Show a, Testable prop) => a -> prop -> Property
+>>  	-- Defined in ‘Test.QuickCheck.Property’
+>> ```
+>>
 >> Collecting Data Values. The argument of collect is evaluated in each test case, and the distribution of values is reported. The type of this argument must be in class Show
 >> 
->> ```
->> classify :: Testable prop => Bool -> String -> prop -> Property
->>   	-- Defined in ‘Test.QuickCheck.Property’
->> ```
+
 > 
 > `classify` and `collect` may be combined in any way. All the observations of each test case are combined, and the distribution of these combinations is reported. For example, testing the property
 > ```

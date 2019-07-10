@@ -69,11 +69,31 @@ prop_PrimeSum_v4 (Prime p) (Prime q) =
   p > 2 && q > 2 ==> classify (q < 1000 || q < 1000) "has small prime " $ 
   collect( if p<q then (p,q) else (q,p)) $ even (p + q)
 
+-- | (==>) example
+-- 
+prop_RevRev :: [String] -> Bool
+prop_RevRev xs = reverse (reverse xs) == xs
+
+ordered xs = and (zipWith (<=) xs (drop 1 xs))
+insert x xs = takeWhile (<x) xs++[x]++ dropWhile (<x) xs
+
+prop_insert :: Int -> [Int] -> Property 
+prop_insert x xs = ordered xs ==> ordered $ insert x xs
+
+-- | forall example
+-- 
+
+-- | classify example
+-- 
+
+-- | verboseCheck
+
+-- main = quickCheck prop_RevRev
 
 main :: IO ()
-main = verboseCheck prop_PrimeSum_v4
+-- main = verboseCheck prop_PrimeSum_v4
 -- main = quickCheckWith stdArgs{maxSuccess = 500} prop_PrimeSum_v4
--- main = quickCheck prop_PrimeSum_v4 
+main = quickCheck prop_PrimeSum_v4 
 -- main = quickCheck prop_OneMoreNodeThanEdges
 -- main = quickCheck prop_split_inv 
 
