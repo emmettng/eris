@@ -6,7 +6,7 @@ Functions in this module are being used to:
 
 Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains functions of following definitions:
 
-### 1. **norm** based 
+### 1. **$L_p$-norm** based 
 > - **$L_1$- norm** based
 > $$ \sum_i |(x_i-y_i)|$$
 > - **Sum Absolute Differece(SAD)** of  $X$ and $Y$.  
@@ -43,45 +43,66 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 
 >- **$L_{\_p}$-norm** based
 > $$d_p:(x,y) \mapsto ||x_i - y_i||_p = (\sum_{i=1}^{n}|x_i-y_i|^p)^{\frac{1}{p}}$$
-> **Minkowski Distance**
+> **Minkowski Distance**   
 > The Minkowski distance is the generalized $L_p$-norm of the difference.
->
+
+>> .When $p$ approaches `infinity`, we get:
 >> - **Chebyshev Distance**
 >> - **Chess board distance**
 >> $$d_\infty:(x,y) \mapsto ||x_i - y_i||_\infty = \lim_{p \rightarrow \infty}(\sum_{i=1}^{n}|x_i-y_i|^p)^{\frac{1}{p}} = \max_i|x_i-y_i|$$
 >> Distance between two vectors is the greatest of their differences along any coordinate dimension.
->
->> - **Hanmming Distance**
+
+>> . When $p$ is `0`, we get:
+>> - **Hanmming Distance**   
 >> Hamming Distance is minkowskiDistance with p=0.
 >> $$d_0:(x,y)\mapsto||x_i-y_i||_0=\sum_{i=1}^{n}|x_i-y_i|^0$$
 >> Between two equal length of same type vectors(instance of Eq), it is the **number** of positions at which corresponding elements are **different**.
 
 
 > - **Intuitive Understanding** of **$L_1$-norm** and **L_2-norm**   
-> In regression problem, people relay on metrics which are based on **$L_1$-norm** and **$L_2$-norm** a lot.
+>
 > 
->> - as **Loss/Risk function**
->> As described in [wikipedia](https://en.wikipedia.org/wiki/Loss_function), risk function is the expect value of loss function.
+>> - Being **Loss/Risk function**   
+>> As described in [wikipedia](https://en.wikipedia.org/wiki/Loss_function), risk function is the expect value of corresponding loss function.
 >> $$R(\theta,\delta) = E_\theta L(\theta,\delta(X))$$
->> In supervised learning algorithms,  metric functions are wildly being used to describe the performance differences between our hypothesis(model) and the underground truth.   
+>> In `regression problem`, most lost functions heavily rely on **$L_1$-norm** or  **$L_2$-norm**.
+>>
 >>
 >>> 1. Uniqueness  
 >>> Assume the truth of $n$ time observation is vector: $Y = (y_1,y_2,...,y_n)$
 >>> The output of our hypothesis is: $H=(h_1,h_2,...,h_n)$.  
->>> **$L_1$-norm** basd metric relay on fumular : 
+>>> **$L_1$-norm** basd loss function relay on fumular : 
 >>> $$\sum_i|y_i-h_i| = (|y_1-h_1| +|y_2-h_2|+...+ |y_i-h_i|)$$
->>> The sum of two functions $f_1(h)= |y_1-h|$ and $f_2(h)= |y_2-h|$ will be a constant number in range $h\in[y_1,y_2]$ and the profe is trivial, since the absolute value of the derivative of these two function are constant number '1' and in range $h\in[y_1,y_2]$ their derivative has different direction so, the sum of these two function is guaranteed to be a staly number and this number is the minimal value of the sum of these two functions. So whenever we would like to minimus the loss which based on **$L_1$-norm** there is no guarantee that there will be a unique solution.   
->> The blue line is : $f(h) = |2-x|$, the yellow is $f(h) = |8-x|$, the red is the sum.
->>![l1_uniquess_no](/imgs/l1_loss_unique.png)
->> Similarily, the first derivate of **$L_2$-norm** based loss function is $x$, it is possible to find, but there is only one minimual value of the sum of these functions.
->>![l2_uniquess_yes](/imgs/l2_loss_unique.png)
+>>> The sum of two functions $f_1(h)= |y_1-h|$ and $f_2(h)= |y_2-h|$ will be a constant number in range $h\in[y_1,y_2]$ and the proof is trivial. The absolute value of the derivative of these two function are constant number '1' and in range $h\in[y_1,y_2]$ their derivative has different direction so, the sum of these two function is guaranteed to be a stable number and this number is the minimal value of the sum of these two functions $f_1(h)+f_2(h)$. 
+>>>
+>>> The blue line is : $f(h) = |2-x|$, the yellow is $f(h) = |8-x|$, the red is the sum.
+>>>![l1_uniquess_no](/imgs/l1_loss_unique.png)
+>>> According to [Central_tendency#uniqueness](https://en.wikipedia.org/wiki/Central_tendency#Uniqueness).    
+>>> - Several measures of central tendency can be characterized as solving a variational problem, in the sense of the [calculus of variations](https://en.wikipedia.org/wiki/Calculus_of_variations), namely minimizing variation from the center. That is, given a measure of statistical dispersion, one asks for a measure of central tendency that minimizes variation: such that variation from the center is minimal among all choices of center. In a quip, "dispersion precedes location". This center may or may not be unique. In the sense of Lp spaces, the correspondence is:
+>>>
+>>>  |Lp|	dispersion|	central| tendency|
+>>>  |:--:|:--:|:--:|:--:|
+>>>  |L0	|variation |ratio	            |mode
+>>>  |L1	|average   |absolute deviation|	median
+>>>  |L1	|average   |absolute deviation|	geometric median
+>>>  |L2	|standard  |deviation	        |mean
+>>>  |L∞	|maximum   |deviation	        |midrange
+>>>
+>>> In a real-world machine learning scenario, the situation is usually that we will get different results with same input (`This is why we need machine learning`), therefore, as demostrated in the image above, when there are even number of elements included in the $L_1$-norm based loss function, the result will be ambiguous.
 >>
->>> 2. Robust
->>> The robust property referse to tolerant variance of 'X', how every this 'X' in most machine learning case is the target, this cannot tolerate the out of domain of the input of a machine learning model. 
->>> 3. Stability
->>> TODO
->
->> - as **Regularization term**
+>>> The first derivate of **$L_2$-norm** based loss function is $x$, it is possible to find, but there is only one minimual value of the sum of these functions.
+>>>![l2_uniquess_yes](/imgs/l2_loss_unique.png)
+>>> 
+>>
+>>> 2. `Robust`   
+>>> The robust property referse to tolerant variance of lablel `'Y'`.    
+>>> Usually, $y$ outlier can have less influence on $L_1$ loss function than $L_2$ loss functions. 
+>>> 3. `Stability`    
+>>> The Stability property referse to tolerant variance of input `'X'`.    
+>>> $x$ outliers could have great influence on both types of loss function and lead to different optimization hypothesis gramatically. More detailed analysis and intuitive understanding will be updated. An existing illustrationis this [reference document](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/).
+>>
+>>
+>> - Being **Regularization term**
 >>> 1. Uniqueness
 >>> 2. Robust
 >>> 3. Stability
@@ -119,6 +140,11 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 
 > - **Pearson correlation** , **z score** and **cosine similarity**
 > zscore use population standard deviation
+>  1. centered and then compute cosine similarity
+>  2. connect with computation using z-score transform
+>  3. notice that the variables are standadized, $X' X = R$, where $R$ is the correlation matrix of independent varialbes `Verify this statment` from this [doc](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf) and check the uniqueness in mentioned in this [video](https://www.youtube.com/watch?v=sO4ZirJh9ds) at 1:46
+>  4. introduce collinearity mentioned in above docs.
+>  5. seperate branch with doc and library branch, modify the .gitignore files.
 
 
 
@@ -142,7 +168,7 @@ the role of normalization
 > Jensen–Shannon divergance
 > Kullback-Leibler Divergence
 > etc...
-
+> How to intuitively understand the value of pearson correlation, ex: what is 0.75 looks like?
 
 degree of freedom
 bit of information
