@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 823daf7e1fe500e92b6f05d5c05d2452f022f56b10b257b58d2bcc0ff88f9e40
+-- hash: ba60c3b9071450de616918745817eeceaf155ae5fd3b86d6f028aa7b776d460f
 
 name:           eris
 version:        0.1.0.0
@@ -54,7 +54,6 @@ test-suite eris-test
   main-is: Spec.hs
   other-modules:
       ErisTestUtility
-      Quicknote.Quick
       SimilaritySpec
       Paths_eris
   hs-source-dirs:
