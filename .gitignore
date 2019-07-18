@@ -21,3 +21,4 @@ codex.tags
 .ghc.environment.*
 note/
 test/Quicknote/Examples.hs
+test/Quicknote/
