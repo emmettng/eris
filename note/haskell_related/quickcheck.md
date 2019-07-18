@@ -1,12 +1,13 @@
-
+## 1.Hspec
 Hspec name is `Model+Spec.hs`
 
+## 2.Quickcheck    
 Quickcheck stack project note:
 - exmaples in folder `tests/Quicknote`, the same as `source-dirs` in package.yaml
 - main model in file `Examples.hs`, the same as `main` in package.yaml
 - The model name of file `Examples.hs` must be `Main` rather than `Example` or `Quicknote.Example`.
-- The model name of file which is desgnated in `main` field in the package.yaml must be `Main`.
-- If there is more than one file in `tests/Quicknote` there mode name is the form `Quicknote.xxxx`.
+  - The model name of file which is desgnated in `main` field in the package.yaml must be `Main`.
+  - If there is more than one file in `tests/Quicknote` there mode name is the form `Quicknote.xxxx`.
 
 ```
 Similarity
@@ -26,7 +27,7 @@ quickCheckWith :: quickCheckWith :: Testable prop => Args -> prop -> IO ()
 verboseCheck :: Testable prop => prop -> IO ()
 ```
 
-## 1. Sample reminder
+#### 2.1 Sample reminder
 ```
 import Test.QuickCheck 
 
