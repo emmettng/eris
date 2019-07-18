@@ -19,3 +19,5 @@ cabal.sandbox.config
 .stack-work/
 codex.tags
 .ghc.environment.*
+note/
+test/Quicknote/Examples.hs
