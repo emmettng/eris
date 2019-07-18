@@ -103,75 +103,90 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >>
 >>
 >> - Being **Regularization term**
->>> 1. Uniqueness
->>> 2. Robust
->>> 3. Stability
+>>> 0. lasso effect
+>>> 1. computational efficiency 
+>>> 3. Feature selection
 >
 
 
 
 
-> - **cosine similarity**
+> - **cosine similarity**  
+> Compute the cosine value of the angle between two vectors.
 > $$s_{cos}:(x,y) \mapsto \frac{<x,y>}{||x||_2||y||_2} =\frac{\sum_{i=1}^{n}x_iy_i}{\sqrt{\sum_{i=1}^{n}x_i^2}\sqrt{\sum_{i=1}^{n}y_i^2}} $$
 > $$s_{cos}(x,y) =\frac{ x \cdot y}{norm_2(x) * norm_2(y)} = \frac{x \cdot y}{||x||_2 * ||y||_2} $$
 > ![cosin similarity](/imgs/cosineSimi.png)
 > 1. $$ (x - \rho y) \cdot y = 0$$
-> 2. $$\cos \theta = \frac{\rho * norm_2(y)}{norm_2(x)} = \frac{\rho * ||y||_2}{||x||_2}$$
-> from equation 1 we have: 
-> 3. $$ x \cdot y = \rho ||y||_2^2$$
-> from equation 2 we have: 
-> 4. $$ \rho = \frac{\cos \theta * ||x||_2}{||y||_2}$$
-> replace $\rho$ in euqation 3 with the definition of $\rho$ in equation 4, we have:
-> 5. $$ x \cdot y = \cos \theta * ||x||_2 * ||y||_2$$
+> 2. $$\cos \theta = \frac{\rho * norm_2(y)}{norm_2(x)} = \frac{\rho * ||y||_2}{||x||_2}$$  
+> from equation 1 we have:      
+> $$$$
+> 3. $$x \cdot y = \rho ||y||_2^2$$  
+> from equation 2 we have:   
+> $$$$
+> 4. $$\rho = \frac{\cos \theta * ||x||_2}{||y||_2}$$  
+> replace $\rho$ in euqation 3 with the definition of $\rho$ in equation 4, we have:  
+> $$$$
+> 5. $$ x \cdot y = \cos \theta * ||x||_2 * ||y||_2$$  
 > therefore:
 > $$s_{cos}(x,y) = \cos \theta = \frac{x \cdot y}{||x||_2 * ||y||_2} = \frac{ x \cdot y}{norm_2(x) * norm_2(y)}$$ 
 >
->> - **cosine distance** = 1 - cosine similarity
->> $ d_{cos} = 1 - s_{cos}$
+>> - **cosine distance** = 1 - cosine similarity  
+>> $d_{cos} = 1 - s_{cos}$  
 >> Cosine Distance is not metric function,  as it does not have the triangle inequality property, see angular similarity and angular distance (valid metric function) below.
 >
 >> - **angular distance** 
->> angular distance represent the radians between two vector, it satisfies the triangle inequality , in a recommendation system, it is assumed that all vectors are  positive.
+>> angular distance represent the radians between two vector, it satisfies the triangle inequality , in a recommendation system, it is assumed that `all vectors are  positive`.
 >>  $$d_{ang}(x,y) = \frac{2 * \cos^{-1}s_{cos}(x,y)}{\pi}$$
 >
 >> - **angular similarity** 
 >> $s_{ang} = 1 - d_{ang}$
 
+> - **centered**    
+> `get ride of bias`    
+> Vectors in the vector space could have many different types of relations.
+> $$v + u = h$$
+> ![vector_sum](/imgs/vector-sum.png)
+> Another very important relation is the linear relation
+> $$ Y = aX+b$$
+> The strucutre contained in matrix $X$ (or even the hyperplane) will be preserved in $Y$. $X$ and $Y$ are isomorphsim.  
+> In some cases, the information being carried by $b$ is not very important or uncessary.   
+> Especially, when we would like to compare structures of two hyperplane $Y_1$ and $Y_2$ which could be transformed from different matrix $X_1$ and $X_2$ respectively.
+> `centered operation` could effectively get ride of `bias` 
+>  $$ Y - \hat Y$$
+>  The math is simple
+>  leave 'a' there
+> - **Z-score**     
+> `transform to same scale`
+>>- Standard deviation 
+>>    - population standard deviation 
+>>    - sample standard deviation
+> - **Pearson correlation**
+>> - cosin similarity    
+>> 0. Given two vectors $V_1$, $V_2$.
+>> 1. Centered $V_1$ and $V_2$ respectively to get $Vc_1$ and $Vc_2$.
+>> 2. Compute the cosine similairity between $Vc_1$ and $Vc_2$.  
+>
+>> - z-score transform
+>>   expectation of covariance 
+>>   notice that the variables are standadized, $X' X = R$, where $R$ is the correlation matrix of independent varialbes `Verify this statment` from this [doc](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf) and check the uniqueness in mentioned in this [video](https://www.youtube.com/watch?v=sO4ZirJh9ds) at 1:46
 
-> - **Pearson correlation** , **z score** and **cosine similarity**
-> zscore use population standard deviation
->  1. centered and then compute cosine similarity
->  2. connect with computation using z-score transform
->  3. notice that the variables are standadized, $X' X = R$, where $R$ is the correlation matrix of independent varialbes `Verify this statment` from this [doc](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf) and check the uniqueness in mentioned in this [video](https://www.youtube.com/watch?v=sO4ZirJh9ds) at 1:46
->  4. introduce collinearity mentioned in above docs.
->  5. seperate branch with doc and library branch, modify the .gitignore files.
 
-
-
-- Standard deviation 
-    - population standard deviation 
-    - sample standard deviation
-
-- pearsoncorrelation 
-    - z-score == centered
-    - then cosin similarity
-
-== intuitive understanding ===
-why centered
-why normalization
-the role of normalization
 
 > - 
-> **To DO**
-> Metrics which measure two distributions.
-> Hamming Distance
-> Jensen–Shannon divergance
-> Kullback-Leibler Divergence
-> etc...
-> How to intuitively understand the value of pearson correlation, ex: what is 0.75 looks like?
-
-degree of freedom
-bit of information
-number of observation 
+> **To DO**  
+> 2. why normalization   
+> 3. the role of normalization   
+>  4. introduce collinearity mentioned in above docs.  
+>  5. seperate branch with doc and library branch, modify the .gitignore files.  
+>  6. loss function (classification), logistic regress, softmax regression, etc...  
+>  7. metric (regression and classification) : softmax, log-loss, cross-entropy, etc...  
+>  8. Metrics which measure two distributions.  
+>  9. amming Distance  
+>  10. Jensen–Shannon divergance  
+>  11. Kullback-Leibler Divergence  
+>  12. how to intuitively understand the value of pearson correlation, ex: what is 0.75 looks like?     
+>  13. degree of freedom  
+>  14. bit of information  
+>  15. number of observation   
 
 
