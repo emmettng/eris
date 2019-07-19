@@ -119,13 +119,10 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 > 1. $$ (x - \rho y) \cdot y = 0$$
 > 2. $$\cos \theta = \frac{\rho * norm_2(y)}{norm_2(x)} = \frac{\rho * ||y||_2}{||x||_2}$$  
 > from equation 1 we have:      
-> $$$$
 > 3. $$x \cdot y = \rho ||y||_2^2$$  
 > from equation 2 we have:   
-> $$$$
 > 4. $$\rho = \frac{\cos \theta * ||x||_2}{||y||_2}$$  
 > replace $\rho$ in euqation 3 with the definition of $\rho$ in equation 4, we have:  
-> $$$$
 > 5. $$ x \cdot y = \cos \theta * ||x||_2 * ||y||_2$$  
 > therefore:
 > $$s_{cos}(x,y) = \cos \theta = \frac{x \cdot y}{||x||_2 * ||y||_2} = \frac{ x \cdot y}{norm_2(x) * norm_2(y)}$$ 
@@ -189,4 +186,7 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >  14. bit of information  
 >  15. number of observation   
 
-
+- references
+    1. [Distance Metrics](https://numerics.mathdotnet.com/Distance.html#Distance-Metrics)
+    2. [cosine, pearson, z-score](https://stats.stackexchange.com/questions/235673/is-there-any-relationship-among-cosine-similarity-pearson-correlation-and-z-sc)
+    3. 
