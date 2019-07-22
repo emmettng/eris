@@ -80,19 +80,24 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >>> According to [Central_tendency#uniqueness](https://en.wikipedia.org/wiki/Central_tendency#Uniqueness).    
 >>> - Several measures of central tendency can be characterized as solving a variational problem, in the sense of the [calculus of variations](https://en.wikipedia.org/wiki/Calculus_of_variations), namely minimizing variation from the center. That is, given a measure of statistical dispersion, one asks for a measure of central tendency that minimizes variation: such that variation from the center is minimal among all choices of center. In a quip, "dispersion precedes location". This center may or may not be unique. In the sense of Lp spaces, the correspondence is:
 >>>
->>>  |Lp|	dispersion|	central| tendency|
+>>>  |Lp|	dispersion|	central tendency|
 >>>  |:--:|:--:|:--:|:--:|
->>>  |L0	|variation |ratio	            |mode
->>>  |L1	|average   |absolute deviation|	median
->>>  |L1	|average   |absolute deviation|	geometric median
->>>  |L2	|standard  |deviation	        |mean
->>>  |L∞	|maximum   |deviation	        |midrange
+>>>  |L0	|variation ratio	            |mode
+>>>  |L1	|average   absolute deviation|	median
+>>>  |L1	|average   absolute deviation|	geometric median
+>>>  |L2	|standard  deviation	        |mean
+>>>  |L∞	|maximum   deviation	        |midrange
 >>>
 >>> In a real-world machine learning scenario, the situation is usually that we will get different results with same input (`This is why we need machine learning`), therefore, as demostrated in the image above, when there are even number of elements included in the $L_1$-norm based loss function, the result will be ambiguous.
 >>
 >>> The first derivate of **$L_2$-norm** based loss function is $x$, it is possible to find, but there is only one minimual value of the sum of these functions.
 >>>![l2_uniquess_yes](/imgs/l2_loss_unique.png)
->>> 
+>>> From vector transformation point of view from:
+>>> $$J(\theta)=\frac{1}{2}(y-\theta X^T)\cdot(y - \theta X^T)^T+\alpha\theta \theta^T$$
+>>> $$\theta = yX(X^TX+\alpha I)^{-1}$$
+>>> more details about doc and doc2
+>>> [doc](https://www.youtube.com/watch?v=sO4ZirJh9ds)
+>>> [doc2](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf)
 >>
 >>> 2. `Robust`   
 >>> The robust property referse to tolerant variance of lablel `'Y'`.    
@@ -102,9 +107,9 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >>> $x$ outliers could have great influence on both types of loss function and lead to different optimization hypothesis gramatically. More detailed analysis and intuitive understanding will be updated. An existing illustrationis this [reference document](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/).
 >>
 >>
->> - Being **Regularization term**
->>> 0. lasso effect
->>> 1. computational efficiency 
+>> - Being **Regularization term** [doc0](https://en.wikipedia.org/wiki/Regularization_(mathematics))
+>>> 0. lasso effect [doc1](https://math.stackexchange.com/questions/1904767/why-small-l1-norm-means-sparsity) [doc3](https://stats.stackexchange.com/questions/45643/why-l1-norm-for-sparse-models)
+>>> 1. computational efficiency [doc2](https://stats.stackexchange.com/questions/46229/fast-linear-regression-robust-to-outliers/51822#51822)
 >>> 3. Feature selection
 >
 
@@ -154,7 +159,7 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >  leave 'a' there
 > - **Z-score**     
 > `transform to same scale`
->>- Standard deviation 
+>>- Standard deviation [standard deivation](https://stats.stackexchange.com/questions/118/why-square-the-difference-instead-of-taking-the-absolute-value-in-standard-devia), [CLT](https://stats.stackexchange.com/questions/3734/what-intuitive-explanation-is-there-for-the-central-limit-theorem)
 >>    - population standard deviation 
 >>    - sample standard deviation
 > - **Pearson correlation**
