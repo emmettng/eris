@@ -170,7 +170,7 @@ Given **$n$** dimensional vectors **$X$** and **$Y$** , this module contains fun
 >
 >> - z-score transform
 >>   expectation of covariance 
->>   notice that the variables are standadized, $X' X = R$, where $R$ is the correlation matrix of independent varialbes `Verify this statment` from this [doc](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf) and check the uniqueness in mentioned in this [video](https://www.youtube.com/watch?v=sO4ZirJh9ds) at 1:46
+>>   notice that the variables are standadized, $X' X = R$, where $R$ is the correlation matrix of independent varialbes `Verify this statment` from this [doc](https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Ridge_Regression.pdf)([this](https://en.wikipedia.org/wiki/Covariance) and the definition of z-score and covariance disprove this document, redo this part later) and check the uniqueness in mentioned in this [video](https://www.youtube.com/watch?v=sO4ZirJh9ds) at 1:46
 
 
 
