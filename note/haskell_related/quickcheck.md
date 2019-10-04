@@ -29,7 +29,7 @@ The name of a spec file has to end in Spec.hs; the module name has to match the 
 Each spec file has to export a top-level binding spec of type Spec.
 ```
 
-###TODO:###
+### TODO:
 finish the entire hspec and quickcheck part with first version of eris.
 
 ## 2.Quickcheck    
