@@ -17,7 +17,21 @@ main = hspec $ do
 - stack test --ta :: `ta` for test arguments, see help for more information. Usually, use '-m .." to match certain partern.
 
 2.Auto file [discovery](https://hspec.github.io/hspec-discover.html)
-- 
+- A Spec.hs file in `test` folder with only one line of code : `{-# OPTIONS_GHC -F -pgmF hspec-discover #-}
+`
+- Multiple testfiles which serve their own purpose, names end with `Spec.hs`.
+- Each test file must has a function `spce` of type `Spec`.
+
+This is the official document:  
+```
+Spec files have to be placed into the same directory as the test driver, or into a subdirectory.
+The name of a spec file has to end in Spec.hs; the module name has to match the file name.
+Each spec file has to export a top-level binding spec of type Spec.
+```
+
+###TODO:###
+finish the entire hspec and quickcheck part with first version of eris.
+
 ## 2.Quickcheck    
 Quickcheck stack project note:
 - exmaples in folder `tests/Quicknote`, the same as `source-dirs` in package.yaml
