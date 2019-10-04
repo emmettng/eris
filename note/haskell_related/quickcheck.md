@@ -1,6 +1,20 @@
 ## 1.Hspec
 Hspec name is `Model+Spec.hs`
 
+#### Simple usage with Stack.
+
+1.use hspec as instructed in the doc[https://hspec.github.io/getting-started.html] directly. 
+- The module name must be main.
+- must contains a function 'main' with type 'IO ()'
+- The main function usually starts with 
+"""
+main :: IO ()
+main = hspec $ do
+    ...
+"""
+
+2.Auto file discovery[https://hspec.github.io/hspec-discover.html]
+- 
 ## 2.Quickcheck    
 Quickcheck stack project note:
 - exmaples in folder `tests/Quicknote`, the same as `source-dirs` in package.yaml
