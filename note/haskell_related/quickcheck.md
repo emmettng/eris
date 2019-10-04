@@ -3,17 +3,19 @@ Hspec name is `Model+Spec.hs`
 
 #### Simple usage with Stack.
 
-1.use hspec as instructed in the doc[https://hspec.github.io/getting-started.html] directly. 
+1.use hspec as instructed in the [doc](https://hspec.github.io/getting-started.html) directly. 
 - The module name must be main.
 - must contains a function 'main' with type 'IO ()'
 - The main function usually starts with 
-"""
+```
 main :: IO ()
 main = hspec $ do
     ...
-"""
+```
+- runIO from (Test.Hspec)[http://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html] is very useful. 
+- printf from (Text.Printf)[http://hackage.haskell.org/package/base-4.12.0.0/docs/Text-Printf.html] is also very useful.
 
-2.Auto file discovery[https://hspec.github.io/hspec-discover.html]
+2.Auto file [discovery](https://hspec.github.io/hspec-discover.html)
 - 
 ## 2.Quickcheck    
 Quickcheck stack project note:
