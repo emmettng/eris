@@ -12,8 +12,8 @@ main :: IO ()
 main = hspec $ do
     ...
 ```
-- runIO from (Test.Hspec)[http://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html] is very useful. 
-- printf from (Text.Printf)[http://hackage.haskell.org/package/base-4.12.0.0/docs/Text-Printf.html] is also very useful.
+- runIO from [Test.Hspec](http://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html) is very useful. 
+- printf from [Text.Printf](http://hackage.haskell.org/package/base-4.12.0.0/docs/Text-Printf.html) is also very useful.
 
 2.Auto file [discovery](https://hspec.github.io/hspec-discover.html)
 - 
