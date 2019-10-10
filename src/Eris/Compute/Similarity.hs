@@ -80,7 +80,10 @@ meanSquaredDistance l1 l2 = squaredL2 / n
     where squaredL2 = sumSquaredDifference l1 l2
           n = fromIntegral . length $ l1
 
-
+-- | Root mean squared Error (rmse)
+rootMeanSquaredError :: RankMetric
+rootMeanSquaredError xs1 xs2 = euclideanDistance xs1 xs2 / sqrtN
+    where sqrtN = sqrt . fromIntegral $ length xs1
           
 -- | Minkowski Distance
 -- This is a degenerate case of Minkowski distance 
