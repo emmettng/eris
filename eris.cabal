@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.31.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ba60c3b9071450de616918745817eeceaf155ae5fd3b86d6f028aa7b776d460f
+-- hash: 54c8fd9f6bb44081c015ee2b1998dc6586bab1d3002307fd38e656461a20e800
 
 name:           eris
 version:        0.1.0.0
@@ -43,7 +43,9 @@ library
   exposed-modules:
       Eris.Compute.Similarity
   other-modules:
+      Eris.Distance.Minkowski
       Eris.Meta.DataStructure
+      Eris.Meta.DataTypes
       Eris.Predict.KNNbased
       Eris.Typhon.Shoulders
       Paths_eris
