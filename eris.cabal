@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 54c8fd9f6bb44081c015ee2b1998dc6586bab1d3002307fd38e656461a20e800
+-- hash: 78e7a430a3d3fb0b51620d3582fff7e789c60eb1f4e5aa06b838b5e5866d2175
 
 name:           eris
 version:        0.1.0.0
@@ -43,9 +43,11 @@ library
   exposed-modules:
       Eris.Compute.Similarity
   other-modules:
-      Eris.Distance.Minkowski
       Eris.Meta.DataStructure
       Eris.Meta.DataTypes
+      Eris.Pantheon.Boltzmann
+      Eris.Pantheon.Minkowski
+      Eris.Pantheon.Pearson
       Eris.Predict.KNNbased
       Eris.Typhon.Shoulders
       Paths_eris

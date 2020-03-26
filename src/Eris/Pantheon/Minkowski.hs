@@ -1,4 +1,4 @@
-module Eris.Distance.Minkowski where
+module Eris.Pantheon.Minkowski where
 
 import Eris.Meta.DataTypes
 import Numeric.LinearAlgebra hiding (Vector)
@@ -12,7 +12,7 @@ import qualified Data.Vector.Storable as DV
 
    1. sad (sub absolute difference, taxicab metric, manhattan distance, l1-norm of (X-Y) ) 
 -}
--- | L1 norm family 
+{- L1 norm family -}
 -- Sum of Absolute Difference: norm(l1) of (v1 - v2)
 -- sad , taxicab, manhattan distance are different names of the same implementation.
 sad :: Vector -> Vector -> Double
@@ -31,7 +31,8 @@ mad v1 v2 = norm1 / n
     norm1 = sad v1 v2
     n = fromIntegral . DV.length $ v1
 
--- | L2 norm based 
+{- L2 norm based -}
+-- | Euclidean Distance 
 --
 euclideanDistance :: Vector -> Vector -> Double
 euclideanDistance v1 v2 = norm_2 (v1 - v2)
@@ -79,3 +80,19 @@ minkowskiDistance p v1 v2 =
     nroot n f = f ** (1 / fromIntegral n)
     f0 :: Int -> Double -> Double
     f0 l v = (2 ^ l) * (v / (1 + v))
+
+{- Minkowski based (p = 0, p -> infinity) -}
+-- | Chebyshev Distance 
+-- The limiting case of Minkowski distance when p reaches infinity 
+cbv :: Vector -> Vector -> Double
+cbv v1 v2 =
+  let absV = DV.map abs $ v1 - v2
+  in DV.maximum absV
+
+-- | Canberra Distance 
+--
+cbr :: Vector -> Vector -> Double
+cbr v1 v2 =
+  let sum1 = DV.sum . (DV.map abs) $ v1
+      sum2 = DV.sum . (DV.map abs) $ v2
+  in (sad v1 v2) / (sum1 + sum2)
